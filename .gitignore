@@ -2,8 +2,15 @@
 *~
 .DS_Store
 
+# Windows
+thumbs.db
+
 # PyCharm
 .idea/
+
+# Output
+/Log/*
+/Data/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

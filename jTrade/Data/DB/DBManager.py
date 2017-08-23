@@ -9,7 +9,7 @@ class DBManager(object):
     Data base manager responsible for interaction with sql db.
     """
 
-    def __init__(self, info : dict):
+    def __init__(self, info : dict=Util.Const.LOCAL_DEV_INFO):
         try:
             self._engine = create_engine('{}://{}:{}@{}:{}/{}'.format(info['type'], info['user'], info['pw'],
                                                                       info['host'], info['port'], info['db']))
