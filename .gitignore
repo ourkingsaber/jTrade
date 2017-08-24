@@ -9,7 +9,7 @@ thumbs.db
 .idea/
 
 # Output
-/Log/*
+#/Log/*
 /Data/*
 
 # Byte-compiled / optimized / DLL files
