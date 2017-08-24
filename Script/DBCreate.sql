@@ -1,5 +1,5 @@
 CREATE TABLE `jTrade_dev`.`EquityQuote` (
-  `symbol` VARCHAR(10) NOT NULL,
+  `symbol` VARCHAR(45) NOT NULL,
   `time` DATETIME NOT NULL,
   `price` FLOAT NULL,
   `change` FLOAT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE `jTrade_dev`.`EquityQuote` (
   PRIMARY KEY (`symbol`, `time`));
 
 CREATE TABLE `jTrade_dev`.`Position` (
-  `symbol` VARCHAR(10) NOT NULL,
+  `symbol` VARCHAR(45) NOT NULL,
   `date` DATE NOT NULL,
   `share` FLOAT NOT NULL,
   `price` FLOAT NOT NULL,
@@ -27,14 +27,14 @@ CREATE TABLE `jTrade_dev`.`Position` (
   PRIMARY KEY (`symbol`, `date`));
 
 CREATE TABLE `jTrade_dev`.`Trade` (
-  `symbol` VARCHAR(10) NOT NULL,
+  `symbol` VARCHAR(45) NOT NULL,
   `date` DATE NOT NULL,
   `share` FLOAT NULL,
   `price` FLOAT NULL,
   PRIMARY KEY (`symbol`, `date`));
 
-CREATE TABLE `jTrade_dev`.`EquityHP` (
-  `symbol` VARCHAR(10) NOT NULL,
+CREATE TABLE `jTrade_dev`.`EquityHP1d` (
+  `symbol` VARCHAR(45) NOT NULL,
   `date` DATE NOT NULL,
   `opn` FLOAT NULL,
   `high` FLOAT NULL,

@@ -1,9 +1,10 @@
 
 import Data.DB.DBManager
 import Data.DB.ORM
+import Data.Fetch.Query
 import Util.Const
 
-quotes_data = Data.DB.ORM.EquityQuote.query_yahoo(['AAPL', 'MSFT'])
+quotes_data = Data.Fetch.Query.Yahoo.quote(['AAPL', 'MSFT'])
 
 dm = Data.DB.DBManager.DBManager(Util.Const.LOCAL_DEV_INFO)
 

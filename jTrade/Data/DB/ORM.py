@@ -2,7 +2,7 @@ import datetime
 from sqlalchemy import Column, String, Float, DateTime, Date
 from sqlalchemy.ext.declarative import declarative_base
 
-import Data.Query.Query
+import Data.Fetch.Query
 
 Base = declarative_base()
 
@@ -45,39 +45,9 @@ class EquityQuote(Base):
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
 
-    @staticmethod
-    def query_yahoo(symbols : list):
-        try:
-            response = Data.Query.Query.YHOO_QUOTE(symbols)
-            time = datetime.datetime.strptime(response['query']['created'], '%Y-%m-%dT%H:%M:%SZ')
 
-            obj_dict = {}
-            for quote in response['query']['results']['quote']:
-                obj_dict[(quote['Symbol'], time)] = {
-                    'symbol': quote['Symbol'],
-                    'time': time,
-                    'price': float(quote['LastTradePriceOnly']),
-                    'change': float(quote['Change']),
-                    'pct_change': float(quote['PercentChange'][:-1]),
-                    'volume': float(quote['Volume']),
-                    'avg_volume': float(quote['AverageDailyVolume']),
-                    'name': quote['Name'],
-                    'exchange': quote['StockExchange'],
-                    'market_cap': float(quote['MarketCapitalization'][:-1]) if quote['MarketCapitalization'][-1] == 'B' \
-                        else float(quote['MarketCapitalization'][:-1]) / 1000 if quote['MarketCapitalization'][-1] == 'M' \
-                        else float(quote['MarketCapitalization'][:-1]) / 1e6,
-                    'day_high': float(quote['DaysHigh']),
-                    'day_low': float(quote['DaysLow']),
-                    'year_high': float(quote['YearHigh']),
-                    'year_low': float(quote['YearLow'])
-                }
-            return obj_dict
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
-
-
-class EquityHP(Base):
-    __tablename__ = 'EquityHP'
+class EquityHP1d(Base):
+    __tablename__ = 'EquityHP1d'
 
     symbol = Column(String(collation='utf8'), primary_key=True)
     date = Column(Date(), primary_key=True)
@@ -97,28 +67,6 @@ class EquityHP(Base):
             self.low = low
             self.close = close
             self.volume = volume
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
-
-    @staticmethod
-    def query_yahoo(symbol, length):
-        try:
-            response = Data.Query.Query.YHOO_HP(symbol, length)
-
-            obj_dict = {}
-            for i in range(len(response['result']['timestamp'])):
-                date = datetime.datetime.fromtimestamp(response['result']['timestamp'][i],
-                                                       datetime.timezone(datetime.timedelta(hours=-4))).date()
-                obj_dict[(symbol, date)] = {
-                    'symbol': symbol,
-                    'date': date,
-                    'opn': float(response['result']['quote']['open'][i]),
-                    'high': float(response['result']['quote']['high'][i]),
-                    'low': float(response['result']['quote']['low'][i]),
-                    'close': float(response['result']['quote']['close'][i]),
-                    'volume': float(response['result']['quote']['volume'][i])
-                }
-            return obj_dict
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
 
@@ -166,10 +114,19 @@ class Trade(Base):
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
 
+def orm_to_nparr(obj : Base):
+    try:
+        d = {}
+        for column in obj.__table__.columns:
+            d[column.name] = getattr(obj, column.name)
+        return d
+    except Exception as e:
+        raise e.with_traceback(e.__traceback__)
 
 if __name__ == '__main__':
     import Data.DB.DBManager
 
     dm = Data.DB.DBManager.DBManager()
-    pos = Position('CASHUSD', datetime.date.today(), 1e6, 1, 1e6, 1, 0, 0)
-    dm.add(pos)
+    pos = dm.query(Position, {('symbol','='):'USDCASH'}, True)
+    print(pos)
+    print(orm_to_nparr(pos))
