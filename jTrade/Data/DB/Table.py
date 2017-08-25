@@ -1,21 +1,22 @@
 from sqlalchemy import Table, Column, MetaData, Float, String, Date, DateTime
 
-metadata = MetaData()
+_metadata = MetaData()
 
 EquityHP1d = Table(
-    'EquityHP1d', metadata,
+    'EquityHP1d', _metadata,
     Column('symbol', String(collation='utf8'), primary_key=True),
     Column('date', Date(), primary_key=True),
-    Column('opn', Float()),
+    Column('open', Float()),
     Column('high', Float()),
     Column('low', Float()),
     Column('close', Float()),
-    Column('volume', Float())
+    Column('volume', Float()),
+    Column('adjusted', Float())
 )
 EquityHP1d_flds = list(EquityHP1d.columns.keys())
 
 EquityQuote = Table(
-    'EquityQuote', metadata,
+    'EquityQuote', _metadata,
     Column('symbol', String(collation='utf8'), primary_key=True),
     Column('time', DateTime(), primary_key=True),
     Column('price', Float()),
@@ -34,7 +35,7 @@ EquityQuote = Table(
 EquityQuote_flds = list(EquityQuote.columns.keys())
 
 Position = Table(
-    'Position', metadata,
+    'Position', _metadata,
     Column('symbol', String(collation='utf8'), primary_key=True),
     Column('date', Date(), primary_key=True),
     Column('share', Float()),
@@ -46,11 +47,22 @@ Position = Table(
 )
 Position_flds = list(Position.columns.keys())
 
-Trade = Table(
-    'Trade', metadata,
+Order = Table(
+    'Order', _metadata,
     Column('symbol', String(collation='utf8'), primary_key=True),
     Column('date', Date(), primary_key=True),
     Column('share', Float()),
-    Column('price', Float())
+    Column('price', Float()),
+    Column('fee', Float()),
+    Column('total', Float())
 )
-Trade_flds = list(Trade.columns.keys())
+Order_flds = list(Order.columns.keys())
+
+EquityInd1d = Table(
+    'EquityInd1d', _metadata,
+    Column('symbol', String(collation='utf8'), primary_key=True),
+    Column('date', Date(), primary_key=True),
+    Column('indicator', String(collation='utf8'), primary_key=True),
+    Column('val', Float())
+)
+EquityInd1d_flds = list(EquityInd1d.columns.keys())

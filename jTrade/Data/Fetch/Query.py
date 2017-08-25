@@ -1,7 +1,7 @@
 
 import json
 import datetime
-
+import pandas as pd
 import urllib.parse
 import urllib.request
 
@@ -13,9 +13,9 @@ class Yahoo(object):
         try:
             response = Yahoo._quote_query(symbols)
             time = datetime.datetime.strptime(response['query']['created'], '%Y-%m-%dT%H:%M:%SZ')
-            obj_dict = {}
+            res_lst = []
             for quote in response['query']['results']['quote']:
-                obj_dict[(quote['Symbol'], time)] = {
+                res_lst.append({
                     'symbol': quote['Symbol'],
                     'time': time,
                     'price': float(quote['LastTradePriceOnly']),
@@ -32,8 +32,9 @@ class Yahoo(object):
                     'day_low': float(quote['DaysLow']),
                     'year_high': float(quote['YearHigh']),
                     'year_low': float(quote['YearLow'])
-                }
-            return obj_dict
+                })
+            df = pd.DataFrame(res_lst)
+            return df
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
 
@@ -41,20 +42,26 @@ class Yahoo(object):
     def hp1d(symbol, length):
         try:
             response = Yahoo._hp1d_query(symbol, length)
-            obj_dict = {}
-            for i in range(len(response['result']['timestamp'])):
-                date = datetime.datetime.fromtimestamp(response['result']['timestamp'][i],
-                                                       datetime.timezone(datetime.timedelta(hours=-4))).date()
-                obj_dict[(symbol, date)] = {
+            res_lst = []
+            timestamp = response['chart']['result'][0]['timestamp']
+            gmt_offset = int(response['chart']['result'][0]['meta']['gmtoffset']) // 3600
+            indicator = response['chart']['result'][0]['indicators']
+            for i in range(len(timestamp)):
+                print(i)
+                date = datetime.datetime.fromtimestamp(timestamp[i],
+                                                       datetime.timezone(datetime.timedelta(hours=-gmt_offset))).date()
+                res_lst.append({
                     'symbol': symbol,
                     'date': date,
-                    'opn': float(response['result']['quote']['open'][i]),
-                    'high': float(response['result']['quote']['high'][i]),
-                    'low': float(response['result']['quote']['low'][i]),
-                    'close': float(response['result']['quote']['close'][i]),
-                    'volume': float(response['result']['quote']['volume'][i])
-                }
-            return obj_dict
+                    'open': float(indicator['quote'][0]['open'][i]),
+                    'high': float(indicator['quote'][0]['high'][i]),
+                    'low': float(indicator['quote'][0]['low'][i]),
+                    'close': float(indicator['quote'][0]['close'][i]),
+                    'volume': float(indicator['quote'][0]['volume'][i]),
+                    'adjusted': float(indicator['adjclose'][0]['adjclose'][i]),
+                })
+            df = pd.DataFrame(res_lst, index=[hp['date'] for hp in res_lst])
+            return df
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
 
@@ -66,6 +73,7 @@ class Yahoo(object):
             yql_query = "select * from yahoo.finance.quotes where symbol in ('{}')".format(ticker_url)
             yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + \
                       "&format=json&diagnostics=true&env=store://datatables.org/alltableswithkeys&callback="
+            print(yql_url)
             result = urllib.request.urlopen(yql_url).read()
             return json.loads(result)
         except Exception as e:
@@ -88,4 +96,5 @@ class Yahoo(object):
 
 if __name__ == '__main__':
     print(Yahoo._quote_query(['AAPL', 'MSFT']))
-    print(Yahoo._hp1d_query('AAPL', '1y'))
+    # print(Yahoo._hp1d_query('AAPL', '1y'))
+    # print(Yahoo.hp1d('AAPL', '1y'))

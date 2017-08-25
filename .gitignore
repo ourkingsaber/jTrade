@@ -8,9 +8,10 @@ thumbs.db
 # PyCharm
 .idea/
 
-# Output
+# Project Specific
 /Log/*
 /Data/*
+/Doc/ProgressTracker.xlsx
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -113,3 +114,4 @@ ENV/
 
 # mypy
 .mypy_cache/
+

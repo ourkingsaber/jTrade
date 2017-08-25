@@ -26,19 +26,29 @@ CREATE TABLE `jTrade_dev`.`Position` (
   `abs_ret` FLOAT NULL,
   PRIMARY KEY (`symbol`, `date`));
 
-CREATE TABLE `jTrade_dev`.`Trade` (
+CREATE TABLE `jTrade_dev`.`Order` (
   `symbol` VARCHAR(45) NOT NULL,
   `date` DATE NOT NULL,
   `share` FLOAT NULL,
   `price` FLOAT NULL,
+  `fee` FLOAT NULL,
+  `total` FLOAT NULL,
   PRIMARY KEY (`symbol`, `date`));
 
 CREATE TABLE `jTrade_dev`.`EquityHP1d` (
   `symbol` VARCHAR(45) NOT NULL,
   `date` DATE NOT NULL,
-  `opn` FLOAT NULL,
+  `open` FLOAT NULL,
   `high` FLOAT NULL,
   `low` FLOAT NULL,
   `close` FLOAT NULL,
   `volume` FLOAT NULL,
+  `adjusted` FLOAT NULL,
   PRIMARY KEY (`symbol`, `date`));
+
+CREATE TABLE `jTrade_dev`.`EquityInd1d` (
+  `symbol` VARCHAR(45) NOT NULL,
+  `date` DATE NOT NULL,
+  `indicator` VARCHAR(45) NOT NULL,
+  `val` FLOAT NULL,
+  PRIMARY KEY (`symbol`, `date`, `indicator`));
