@@ -3,18 +3,22 @@ from abc import ABCMeta, abstractstaticmethod, abstractmethod
 
 
 class FeeModel(metaclass=ABCMeta):
+    """Fee Model calculator."""
+
     @abstractmethod
     def calculate(self, share, price):
         return
 
-class FlatConstFeeModel(FeeModel):
+
+class FixedFlat(FeeModel):
     def __init__(self, flat_rate=0):
         self.flat_rate = flat_rate
 
     def calculate(self, share, price):
         return self.flat_rate
 
-class FlatRatioFeeModel(FeeModel):
+
+class FixedRatio(FeeModel):
     def __init__(self, flat_rate, cap=None, floor=None):
         self.flat_rate = flat_rate
         self.cap = cap

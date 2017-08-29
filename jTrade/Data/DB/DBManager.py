@@ -11,7 +11,7 @@ import Data.DB.Table
 
 class DBManager(object):
     """
-    Data base manager responsible for interaction with sql db.
+    Database manager responsible for interaction with sql db.
     """
 
     _logic_op = {'&', '|'}
@@ -100,19 +100,22 @@ class DBManager(object):
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
 
+# common DBManager for application
+# todo: check if this is the general approach
+dbmanager = DBManager(Util.Const.LOCAL_DEV_INFO)
+
 
 if __name__ == '__main__':
-    dm = DBManager()
     filtr = {'&': {('symbol', '='): 'AAPL',
                    ('date', '='): datetime.date(2017,8,21)}}
-    test = dm.select(Data.DB.Table.EquityHP1d, filtr)
+    test = dbmanager.select(Data.DB.Table.EquityHP, filtr)
     print(test)
     #
     filtr = {('date', '='): datetime.date(2017, 8, 21)}
-    tests = dm.select(Data.DB.Table.EquityHP1d, filtr)
+    tests = dbmanager.select(Data.DB.Table.EquityHP, filtr)
     print(tests)
 
-    # res = dm.select(Data.DB.Table.EquityHP1d, {('symbol','='):'AAPL'})
+    # res = dbmanager.select(Data.DB.Table.EquityHP, {('symbol','='):'AAPL'})
     # for row in res:
     #     print(row)
 
@@ -126,4 +129,4 @@ if __name__ == '__main__':
         'pct_ret': [0,0],
         'abs_ret': [0,0]
     })
-    dm.insert_df(Data.DB.Table.Position, df, 'append', False)
+    dbmanager.insert_df(Data.DB.Table.Position, df, 'append', False)

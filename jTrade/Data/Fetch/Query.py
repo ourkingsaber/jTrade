@@ -7,9 +7,10 @@ import urllib.request
 
 
 class Yahoo(object):
+    """Fetches data from Yahoo."""
 
     @staticmethod
-    def quote(symbols : list):
+    def EquityQuote(symbols : list):
         try:
             response = Yahoo._quote_query(symbols)
             time = datetime.datetime.strptime(response['query']['created'], '%Y-%m-%dT%H:%M:%SZ')
@@ -39,17 +40,15 @@ class Yahoo(object):
             raise e.with_traceback(e.__traceback__)
 
     @staticmethod
-    def hp1d(symbol, length):
+    def EquityHP(symbol, length):
         try:
             response = Yahoo._hp1d_query(symbol, length)
-            res_lst = []
             timestamp = response['chart']['result'][0]['timestamp']
             gmt_offset = int(response['chart']['result'][0]['meta']['gmtoffset']) // 3600
             indicator = response['chart']['result'][0]['indicators']
+            res_lst = []
             for i in range(len(timestamp)):
-                print(i)
-                date = datetime.datetime.fromtimestamp(timestamp[i],
-                                                       datetime.timezone(datetime.timedelta(hours=-gmt_offset))).date()
+                date = datetime.datetime.fromtimestamp(timestamp[i], datetime.timezone(datetime.timedelta(hours=-gmt_offset))).date()
                 res_lst.append({
                     'symbol': symbol,
                     'date': date,
@@ -66,7 +65,7 @@ class Yahoo(object):
             raise e.with_traceback(e.__traceback__)
 
     @staticmethod
-    def _quote_query(symbols : list):
+    def _EquityQuote_query(symbols : list):
         try:
             baseurl = "https://query.yahooapis.com/v1/public/yql?"
             ticker_url = "','".join(symbols)
@@ -80,7 +79,7 @@ class Yahoo(object):
             raise e.with_traceback(e.__traceback__)
 
     @staticmethod
-    def _hp1d_query(symbol, length):
+    def _EquityHP_query(symbol, length):
         try:
             if length not in ["1d","5d","1mo","3mo","6mo","1y","2y","5y","10y","ytd","max"]:
                 raise ValueError('Time range not valid.')
@@ -95,6 +94,6 @@ class Yahoo(object):
 
 
 if __name__ == '__main__':
-    print(Yahoo._quote_query(['AAPL', 'MSFT']))
-    # print(Yahoo._hp1d_query('AAPL', '1y'))
-    # print(Yahoo.hp1d('AAPL', '1y'))
+    print(Yahoo._EquityQuote_query(['AAPL', 'MSFT']))
+    # print(Yahoo._EquityHP_query('AAPL', '1y'))
+    # print(Yahoo.EquityHP('AAPL', '1y'))

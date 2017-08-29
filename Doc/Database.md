@@ -1,5 +1,12 @@
 # Database Structure
 
+With database there are several types of tables:
+- Data from external source (historical price, quote). These will be queried and that's it. There values will not change
+  in the course of program, and there will not be new values added.
+- Indicators, analytics, runtime results. These don't have to be saved in database, but can be.
+- Position, order... These hopefully have to option of persiting in the database. Again, during one strategy 
+  backtest/learning, no need to save those. 
+
 ### Quote
 Real time instrument quote from Yahoo Finance. For now, columns include:
 - symbol (key)

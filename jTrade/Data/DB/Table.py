@@ -2,8 +2,9 @@ from sqlalchemy import Table, Column, MetaData, Float, String, Date, DateTime
 
 _metadata = MetaData()
 
-EquityHP1d = Table(
-    'EquityHP1d', _metadata,
+# Daily equity historical price
+EquityHP = Table(
+    'EquityHP', _metadata,
     Column('symbol', String(collation='utf8'), primary_key=True),
     Column('date', Date(), primary_key=True),
     Column('open', Float()),
@@ -13,8 +14,10 @@ EquityHP1d = Table(
     Column('volume', Float()),
     Column('adjusted', Float())
 )
-EquityHP1d_flds = list(EquityHP1d.columns.keys())
+EquityHP_flds = list(EquityHP.columns.keys())
+EquityHP_idxs = {name: idx for idx, name in enumerate(EquityHP.columns.keys())}
 
+# Equity real time quote
 EquityQuote = Table(
     'EquityQuote', _metadata,
     Column('symbol', String(collation='utf8'), primary_key=True),
@@ -34,6 +37,7 @@ EquityQuote = Table(
 )
 EquityQuote_flds = list(EquityQuote.columns.keys())
 
+# Position historical record
 Position = Table(
     'Position', _metadata,
     Column('symbol', String(collation='utf8'), primary_key=True),
@@ -47,6 +51,7 @@ Position = Table(
 )
 Position_flds = list(Position.columns.keys())
 
+# Order record
 Order = Table(
     'Order', _metadata,
     Column('symbol', String(collation='utf8'), primary_key=True),
@@ -58,11 +63,12 @@ Order = Table(
 )
 Order_flds = list(Order.columns.keys())
 
-EquityInd1d = Table(
+# Equity daily technical indicator
+EquityInd = Table(
     'EquityInd1d', _metadata,
     Column('symbol', String(collation='utf8'), primary_key=True),
     Column('date', Date(), primary_key=True),
     Column('indicator', String(collation='utf8'), primary_key=True),
     Column('val', Float())
 )
-EquityInd1d_flds = list(EquityInd1d.columns.keys())
+EquityInd_flds = list(EquityInd.columns.keys())

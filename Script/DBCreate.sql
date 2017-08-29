@@ -35,7 +35,7 @@ CREATE TABLE `jTrade_dev`.`Order` (
   `total` FLOAT NULL,
   PRIMARY KEY (`symbol`, `date`));
 
-CREATE TABLE `jTrade_dev`.`EquityHP1d` (
+CREATE TABLE `jTrade_dev`.`EquityHP` (
   `symbol` VARCHAR(45) NOT NULL,
   `date` DATE NOT NULL,
   `open` FLOAT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `jTrade_dev`.`EquityHP1d` (
   `adjusted` FLOAT NULL,
   PRIMARY KEY (`symbol`, `date`));
 
-CREATE TABLE `jTrade_dev`.`EquityInd1d` (
+CREATE TABLE `jTrade_dev`.`EquityInd` (
   `symbol` VARCHAR(45) NOT NULL,
   `date` DATE NOT NULL,
   `indicator` VARCHAR(45) NOT NULL,
