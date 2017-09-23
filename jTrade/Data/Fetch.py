@@ -3,11 +3,13 @@ import base64
 import json
 import urllib.parse
 import urllib.request
-
 import quandl
+import datetime
+import pandas as pd
 from rpy2.robjects import packages as rpackages, pandas2ri, r
 
 import Util.Credential
+import Data.Table
 
 quandl.ApiConfig.api_key = Util.Credential.quandl['apikey']
 
@@ -41,20 +43,41 @@ class Intrino(object):
         result = urllib.request.urlopen(req).read()
         return json.loads(result)
 
+    @staticmethod
+    def stmt_to_table(statement):
+        if statement == 'income_statement':
+            return Data.Table.EquityFinIS
+        elif statement == 'balance_sheet':
+            return Data.Table.EquityFinBS
+        elif statement == 'cash_flow_statement':
+            return Data.Table.EquityFinCF
+        elif statement == 'calculations':
+            return Data.Table.EquityFinFund
+        else:
+            raise ValueError('{} is not a valid statement'.format(statement))
+
+    @staticmethod
+    def is_duplicate(symbol, year, period, statement):
+        fltr = {'&': {
+            ('symbol', '='): symbol,
+            ('year', '='): year,
+            ('period', '='): period
+        }}
+        df = dbmanager.select(Intrino.stmt_to_table(statement), fltr, parse_dates=False)
+        return df.shape[0] > 0
+
 
 class Quandl(object):
     """Fetch data from Quandl"""
 
     @staticmethod
-    def EquityHp(symbols, start, end):
+    def EquityHP(symbols, start, end):
         if isinstance(symbols, str):
             symbols = [symbols]
         symbolstr = ','.join(symbols)
         datestr = ','.join(d.isoformat() for d in (start + datetime.timedelta(x) for x in range((end-start).days + 1)))
-        result = quandl.get_table('WIKI/PRICES', ticker=symbolstr, date=datestr)
-
-        return result
-
+        df = quandl.get_table('WIKI/PRICES', ticker=symbolstr, date=datestr)
+        return df
 
 
 class Yahoo(object):
@@ -122,16 +145,13 @@ class Yahoo(object):
 
     @staticmethod
     def _EquityHP_query(symbol, length):
-        try:
-            if length not in ["1d","5d","1mo","3mo","6mo","1y","2y","5y","10y","ytd","max"]:
-                raise ValueError('Time range not valid.')
+        if length not in ["1d","5d","1mo","3mo","6mo","1y","2y","5y","10y","ytd","max"]:
+            raise ValueError('Time range not valid.')
 
-            url = 'https://query1.finance.yahoo.com/v7/finance/chart/{}?range={}&interval=1d&indicators=quote&includeTimestamps=true'.format(symbol, length)
+        url = 'https://query1.finance.yahoo.com/v7/finance/chart/{}?range={}&interval=1d&indicators=quote&includeTimestamps=true'.format(symbol, length)
 
-            result = urllib.request.urlopen(url).read()
-            return json.loads(result)
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        result = urllib.request.urlopen(url).read()
+        return json.loads(result)
 
 
 class QuantMod(object):
@@ -142,28 +162,24 @@ class QuantMod(object):
 
     @staticmethod
     def EquityHP(symbol, start, end):
-        try:
-            # gets a ndarray
-            r('{} = getSymbols("{}",from="{}",to="{}",src="google",auto.assign=F)'.format(
-                symbol+'.hp', symbol, start.isoformat(), end.isoformat()))
-            # convert to dataframe
-            r('{} = data.frame(date=index({}), coredata({}))'.format(symbol+'.hp', symbol+'.hp', symbol+'.hp'))
-            hps = pd.DataFrame(r[symbol+'.hp'])
-            # convert days since epoch to datetime
-            epoch = datetime.date(1970, 1, 1)
-            hps.loc[:,'date'] = [epoch+datetime.timedelta(days=int(d)) for d in hps.loc[:,'date']]
-            # add column of symbol
-            hps['symbol'] = symbol
-            # convert column names
-            hps.columns = [name.split('.')[-1].lower() for name in hps.columns]
-            return hps
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
-
+        # gets a ndarray
+        r('{} = getSymbols("{}",from="{}",to="{}",src="google",auto.assign=F)'.format(
+            symbol+'.hp', symbol, start.isoformat(), end.isoformat()))
+        # convert to dataframe
+        r('{} = data.frame(date=index({}), coredata({}))'.format(symbol+'.hp', symbol+'.hp', symbol+'.hp'))
+        hps = pd.DataFrame(r[symbol+'.hp'])
+        # convert days since epoch to datetime
+        epoch = datetime.date(1970, 1, 1)
+        hps.loc[:,'date'] = [epoch+datetime.timedelta(days=int(d)) for d in hps.loc[:,'date']]
+        # add column of symbol
+        hps['symbol'] = symbol
+        # convert column names
+        hps.columns = [name.split('.')[-1].lower() for name in hps.columns]
+        return hps
 
 
 if __name__ == '__main__':
-    from Data.DBManager import *
+    from Data.DBManager import dbmanager
 
     # print(Yahoo._EquityQuote_query(['AAPL', 'MSFT']))
     # print(Yahoo._EquityHP_query('AAPL', '1y'))
@@ -221,7 +237,8 @@ if __name__ == '__main__':
     #                 print(e.with_traceback(e.__traceback__))
 
     s = ['AAPL','FB']
-    print(Quandl.EquityHp(s,datetime.date(2017,1,1),datetime.date(2017,1,10)))
-    print(s)
+    # hp = Quandl.EquityHP(s, datetime.date(2017, 1, 1), datetime.date(2017, 1, 10))
+    # print(hp.shape[0])
+
 
 

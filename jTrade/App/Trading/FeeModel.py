@@ -25,12 +25,9 @@ class FixedRatio(FeeModel):
         self.floor = floor
 
     def calculate(self, share, price):
-        try:
-            fee = share * price * self.flat_rate
-            if self.cap is not None:
-                fee = min(fee, self.cap)
-            if self.floor is not None:
-                fee = max(fee, self.floor)
-            return fee
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        fee = share * price * self.flat_rate
+        if self.cap is not None:
+            fee = min(fee, self.cap)
+        if self.floor is not None:
+            fee = max(fee, self.floor)
+        return fee

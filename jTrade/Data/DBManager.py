@@ -20,36 +20,27 @@ class DBManager(object):
     _filter_op = {'=', '!=', '>', '<', '>=', '<='}
 
     def __init__(self, info : dict= Util.Credential.local_dev_db):
-        try:
-            self._engine = create_engine('{}://{}:{}@{}:{}/{}'.format(info['type'], info['user'], info['pw'],
-                                                                      info['host'], info['port'], info['db']))
-            self._DBSession = sessionmaker(bind=self._engine)
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        self._engine = create_engine('{}://{}:{}@{}:{}/{}'.format(info['type'], info['user'], info['pw'],
+                                                                  info['host'], info['port'], info['db']))
+        self._DBSession = sessionmaker(bind=self._engine)
 
     def select(self, table : Data.Table.Table, filter_dict, index_col='date', parse_dates=['date']):
-        try:
-            sql_filter = DBManager.dict_to_sql_filter(table, filter_dict)
-            s = select([table]).where(sql_filter)
-            if parse_dates:
-                df = pd.read_sql(s, self._engine, index_col=index_col, parse_dates=parse_dates)
-            else:
-                df = pd.read_sql(s, self._engine)
-            return df
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        sql_filter = DBManager.dict_to_sql_filter(table, filter_dict)
+        s = select([table]).where(sql_filter)
+        if parse_dates:
+            df = pd.read_sql(s, self._engine, index_col=index_col, parse_dates=parse_dates)
+        else:
+            df = pd.read_sql(s, self._engine)
+        return df
 
     def insert(self, table : Data.Table.Table, values_list):
-        try:
-            conn = self._engine.connect()
-            if not isinstance(values_list, list):
-                values_list = [values_list]
-            for values in values_list:
-                ins = table.insert().values(**values)
-                conn.execute(ins)
-            conn.close()
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        conn = self._engine.connect()
+        if not isinstance(values_list, list):
+            values_list = [values_list]
+        for values in values_list:
+            ins = table.insert().values(**values)
+            conn.execute(ins)
+        conn.close()
 
     def insert_df(self, table : Data.Table.Table, dataframe : pd.DataFrame, if_exists='append', index=False):
         """Inserts a dataframe into database.
@@ -60,12 +51,9 @@ class DBManager(object):
         :param index: if True, insert index as a column
         :return:
         """
-        try:
-            dtype = {str(col.description): col.type for col in table.columns}
-            dataframe.to_sql(str(table.name), self._engine, schema=self._engine.url.database,
-                             if_exists=if_exists, index=index, dtype=dtype)
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        dtype = {str(col.description): col.type for col in table.columns}
+        dataframe.to_sql(str(table.name), self._engine, schema=self._engine.url.database,
+                         if_exists=if_exists, index=index, dtype=dtype)
 
     @staticmethod
     def dict_to_sql_filter(table : Data.Table.Table, filter_dict : dict):
@@ -74,36 +62,33 @@ class DBManager(object):
         :param filter_dict: {'&': {('symbol','='): 'AAPL', ('date', '>'): datetime.date(2017,1,1)}}
         :return: sqlalchemy expression
         """
-        try:
-            if len(list(filter_dict.keys())) != 1:
-                raise ValueError('filter dict not valid. Number of items should be 1')
-            k, v = next(iter(filter_dict.items()))
-            if k in DBManager._logic_op:
-                child_filters = (DBManager.dict_to_sql_filter(table, {k: v}) for k, v in v.items())
-                if k == '&':
-                    sql_filter = and_(*child_filters)
-                elif k == '|':
-                    sql_filter = or_(*child_filters)
-                else:
-                    raise ValueError('{} is not a valid operator'.format(k))
+        if len(list(filter_dict.keys())) != 1:
+            raise ValueError('filter dict not valid. Number of items should be 1')
+        k, v = next(iter(filter_dict.items()))
+        if k in DBManager._logic_op:
+            child_filters = (DBManager.dict_to_sql_filter(table, {k: v}) for k, v in v.items())
+            if k == '&':
+                sql_filter = and_(*child_filters)
+            elif k == '|':
+                sql_filter = or_(*child_filters)
             else:
-                if k[1] == '=':
-                    sql_filter = table.columns[k[0]] == v
-                elif k[1] == '!=':
-                    sql_filter = table.columns[k[0]] != v
-                elif k[1] == '>':
-                    sql_filter = table.columns[k[0]] > v
-                elif k[1] == '<':
-                    sql_filter = table.columns[k[0]] < v
-                elif k[1] == '>=':
-                    sql_filter = table.columns[k[0]] >= v
-                elif k[1] == '<=':
-                    sql_filter = table.columns[k[0]] <= v
-                else:
-                    raise ValueError('{} is not a valid operator'.format(k))
-            return sql_filter
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+                raise ValueError('{} is not a valid operator'.format(k))
+        else:
+            if k[1] == '=':
+                sql_filter = table.columns[k[0]] == v
+            elif k[1] == '!=':
+                sql_filter = table.columns[k[0]] != v
+            elif k[1] == '>':
+                sql_filter = table.columns[k[0]] > v
+            elif k[1] == '<':
+                sql_filter = table.columns[k[0]] < v
+            elif k[1] == '>=':
+                sql_filter = table.columns[k[0]] >= v
+            elif k[1] == '<=':
+                sql_filter = table.columns[k[0]] <= v
+            else:
+                raise ValueError('{} is not a valid operator'.format(k))
+        return sql_filter
 
 # common DBManager for application
 # todo: check if this is the general approach

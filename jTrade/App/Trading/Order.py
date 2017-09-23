@@ -19,28 +19,23 @@ class Order(object):
         self.total = self.share * self.price + self.fee
 
     def to_df(self):
-        try:
-            od = OrderedDict([
-                ('symbol', self.equity.symbol),
-                ('date', self.date),
-                ('share', self.share),
-                ('price', self.price),
-                ('fee', self.fee),
-                ('total', self.total)
-            ])
-            df = pd.DataFrame(od, index=[self.date])
-            return df
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        od = OrderedDict([
+            ('symbol', self.equity.symbol),
+            ('date', self.date),
+            ('share', self.share),
+            ('price', self.price),
+            ('fee', self.fee),
+            ('total', self.total)
+        ])
+        df = pd.DataFrame(od, index=[self.date])
+        return df
 
+    # todo
     def save_to_db(self):
-        try:
-            pass
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        pass
 
 if __name__ == '__main__':
-    test = Core.Instrument.Equity.Equity('AAPL', 'Apple, Inc.')
+    test = Core.Instrument.Equity.Equity('AAPL')
     fm = App.Trading.FeeModel.FixedFlat(100)
     a = Order(test, datetime.date.today(), 100, 50, fm)
     print(a.total)

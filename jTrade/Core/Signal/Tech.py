@@ -15,12 +15,9 @@ def BBANDS(equity, start=None, end=None, timeperiod=5, nbdevup=2, nbdevdn=2, mat
     :param matype:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        upperband, middleband, lowerband = talib.BBANDS(close, timeperiod=timeperiod, nbdevup=nbdevup, nbdevdn=nbdevdn, matype=matype)
-        return upperband, middleband, lowerband
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    upperband, middleband, lowerband = talib.BBANDS(close, timeperiod=timeperiod, nbdevup=nbdevup, nbdevdn=nbdevdn, matype=matype)
+    return upperband, middleband, lowerband
 
 
 def DEMA(equity, start=None, end=None, timeperiod=30):
@@ -29,59 +26,47 @@ def DEMA(equity, start=None, end=None, timeperiod=30):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.DEMA(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.DEMA(close, timeperiod=timeperiod)
+    return real
 
 
 def EMA(equity, start=None, end=None, timeperiod=30):
     """Exponential Moving Average
 
 
-    NOTE: The EMA function has an unstable period.
+NOTE: The EMA function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.EMA(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.EMA(close, timeperiod=timeperiod)
+    return real
 
 
 def HT_TRENDLINE(equity, start=None, end=None):
     """Hilbert Transform - Instantaneous Trendline
 
 
-    NOTE: The HT_TRENDLINE function has an unstable period.
+NOTE: The HT_TRENDLINE function has an unstable period.
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.HT_TRENDLINE(close)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.HT_TRENDLINE(close)
+    return real
 
 
 def KAMA(equity, start=None, end=None, timeperiod=30):
     """Kaufman Adaptive Moving Average
 
 
-    NOTE: The KAMA function has an unstable period.
+NOTE: The KAMA function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.KAMA(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.KAMA(close, timeperiod=timeperiod)
+    return real
 
 
 def MA(equity, start=None, end=None, timeperiod=30, matype=0):
@@ -91,29 +76,23 @@ def MA(equity, start=None, end=None, timeperiod=30, matype=0):
     :param matype:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.MA(close, timeperiod=timeperiod, matype=matype)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.MA(close, timeperiod=timeperiod, matype=matype)
+    return real
 
 
 def MAMA(equity, start=None, end=None, fastlimit=0, slowlimit=0):
     """MESA Adaptive Moving Average
 
 
-    NOTE: The MAMA function has an unstable period.
+NOTE: The MAMA function has an unstable period.
     :param fastlimit:
     :param slowlimit:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        mama, fama = talib.MAMA(close, fastlimit=fastlimit, slowlimit=slowlimit)
-        return mama, fama
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    mama, fama = talib.MAMA(close, fastlimit=fastlimit, slowlimit=slowlimit)
+    return mama, fama
 
 
 def MAVP(equity, periods, start=None, end=None, minperiod=2, maxperiod=30, matype=0):
@@ -125,12 +104,9 @@ def MAVP(equity, periods, start=None, end=None, minperiod=2, maxperiod=30, matyp
     :param matype:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.MAVP(close, periods, minperiod=minperiod, maxperiod=maxperiod, matype=matype)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.MAVP(close, periods, minperiod=minperiod, maxperiod=maxperiod, matype=matype)
+    return real
 
 
 def MIDPOINT(equity, start=None, end=None, timeperiod=14):
@@ -139,12 +115,9 @@ def MIDPOINT(equity, start=None, end=None, timeperiod=14):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.MIDPOINT(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.MIDPOINT(close, timeperiod=timeperiod)
+    return real
 
 
 def MIDPRICE(equity, start=None, end=None, timeperiod=14):
@@ -153,13 +126,10 @@ def MIDPRICE(equity, start=None, end=None, timeperiod=14):
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        real = talib.MIDPRICE(high, low, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    real = talib.MIDPRICE(high, low, timeperiod=timeperiod)
+    return real
 
 
 def SAR(equity, start=None, end=None, acceleration=0, maximum=0):
@@ -169,17 +139,14 @@ def SAR(equity, start=None, end=None, acceleration=0, maximum=0):
     :param maximum:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        real = talib.SAR(high, low, acceleration=acceleration, maximum=maximum)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    real = talib.SAR(high, low, acceleration=acceleration, maximum=maximum)
+    return real
 
 
 def SAREXT(equity, start=None, end=None, startvalue=0, offsetonreverse=0, accelerationinitlong=0, accelerationlong=0,
-           accelerationmaxlong=0, accelerationinitshort=0, accelerationshort=0, accelerationmaxshort=0):
+       accelerationmaxlong=0, accelerationinitshort=0, accelerationshort=0, accelerationmaxshort=0):
     """Parabolic SAR - Extended
 
     :param startvalue:
@@ -192,15 +159,12 @@ def SAREXT(equity, start=None, end=None, startvalue=0, offsetonreverse=0, accele
     :param accelerationmaxshort:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        real = talib.SAREXT(high, low, startvalue=startvalue, offsetonreverse=offsetonreverse, accelerationinitlong=accelerationinitlong,
-                            accelerationlong=accelerationlong, accelerationmaxlong=accelerationmaxlong, accelerationinitshort=accelerationinitshort,
-                            accelerationshort=accelerationshort, accelerationmaxshort=accelerationmaxshort)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    real = talib.SAREXT(high, low, startvalue=startvalue, offsetonreverse=offsetonreverse, accelerationinitlong=accelerationinitlong,
+                        accelerationlong=accelerationlong, accelerationmaxlong=accelerationmaxlong, accelerationinitshort=accelerationinitshort,
+                        accelerationshort=accelerationshort, accelerationmaxshort=accelerationmaxshort)
+    return real
 
 
 def SMA(equity, start=None, end=None, timeperiod=30):
@@ -209,29 +173,23 @@ def SMA(equity, start=None, end=None, timeperiod=30):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.SMA(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.SMA(close, timeperiod=timeperiod)
+    return real
 
 
 def T3(equity, start=None, end=None, timeperiod=5, vfactor=0):
     """Triple Exponential Moving Average (T3)
 
 
-    NOTE: The T3 function has an unstable period.
+NOTE: The T3 function has an unstable period.
     :param timeperiod:
     :param vfactor:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.T3(close, timeperiod=timeperiod, vfactor=vfactor)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.T3(close, timeperiod=timeperiod, vfactor=vfactor)
+    return real
 
 
 def TEMA(equity, start=None, end=None, timeperiod=30):
@@ -240,12 +198,9 @@ def TEMA(equity, start=None, end=None, timeperiod=30):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.TEMA(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.TEMA(close, timeperiod=timeperiod)
+    return real
 
 
 def TRIMA(equity, start=None, end=None, timeperiod=30):
@@ -254,12 +209,9 @@ def TRIMA(equity, start=None, end=None, timeperiod=30):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.TRIMA(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.TRIMA(close, timeperiod=timeperiod)
+    return real
 
 
 def WMA(equity, start=None, end=None, timeperiod=30):
@@ -268,12 +220,9 @@ def WMA(equity, start=None, end=None, timeperiod=30):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.WMA(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.WMA(close, timeperiod=timeperiod)
+    return real
 # ========== TECH OVERLAP INDICATORS **END** ==========
 
 
@@ -283,36 +232,30 @@ def ADX(equity, start=None, end=None, timeperiod=14):
     """Average Directional Movement Index
 
 
-    NOTE: The ADX function has an unstable period.
+NOTE: The ADX function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.ADX(high, low, close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.ADX(high, low, close, timeperiod=timeperiod)
+    return real
 
 
 def ADXR(equity, start=None, end=None, timeperiod=14):
     """Average Directional Movement Index Rating
 
 
-    NOTE: The ADXR function has an unstable period.
+NOTE: The ADXR function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.ADXR(high, low, close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.ADXR(high, low, close, timeperiod=timeperiod)
+    return real
 
 
 def APO(equity, start=None, end=None, fastperiod=12, slowperiod=26, matype=0):
@@ -323,12 +266,9 @@ def APO(equity, start=None, end=None, fastperiod=12, slowperiod=26, matype=0):
     :param matype:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.APO(close, fastperiod=fastperiod, slowperiod=slowperiod, matype=matype)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.APO(close, fastperiod=fastperiod, slowperiod=slowperiod, matype=matype)
+    return real
 
 
 def AROON(equity, start=None, end=None, timeperiod=14):
@@ -337,13 +277,10 @@ def AROON(equity, start=None, end=None, timeperiod=14):
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        aroondown, aroonup = talib.AROON(high, low, timeperiod=timeperiod)
-        return aroondown, aroonup
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)\
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    aroondown, aroonup = talib.AROON(high, low, timeperiod=timeperiod)
+    return aroondown, aroonup
 
 
 def AROONOSC(equity, start=None, end=None, timeperiod=14):
@@ -352,13 +289,10 @@ def AROONOSC(equity, start=None, end=None, timeperiod=14):
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        real = talib.AROONOSC(high, low, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    real = talib.AROONOSC(high, low, timeperiod=timeperiod)
+    return real
 
 
 def BOP(equity, start=None, end=None):
@@ -366,15 +300,12 @@ def BOP(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.BOP(opn, high, low, close)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.BOP(opn, high, low, close)
+    return real
 
 
 def CCI(equity, start=None, end=None, timeperiod=14):
@@ -383,47 +314,38 @@ def CCI(equity, start=None, end=None, timeperiod=14):
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.CCI(high, low, close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.CCI(high, low, close, timeperiod=timeperiod)
+    return real
 
 
 def CMO(equity, start=None, end=None, timeperiod=14):
     """Chande Momentum Oscillator
 
-    NOTE: The CMO function has an unstable period.
+NOTE: The CMO function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.CMO(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.CMO(close, timeperiod=timeperiod)
+    return real
 
 
 def DX(equity, start=None, end=None, timeperiod=14):
     """Directional Movement Index
 
 
-    NOTE: The DX function has an unstable period.
+NOTE: The DX function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.DX(high, low, close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.DX(high, low, close, timeperiod=timeperiod)
+    return real
 
 
 def MACD(equity, start=None, end=None, fastperiod=12, slowperiod=26, signalperiod=9):
@@ -434,12 +356,9 @@ def MACD(equity, start=None, end=None, fastperiod=12, slowperiod=26, signalperio
     :param signalperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        macd, macdsignal, macdhist = talib.MACD(close, fastperiod=fastperiod, slowperiod=slowperiod, signalperiod=signalperiod)
-        return macd, macdsignal, macdhist
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    macd, macdsignal, macdhist = talib.MACD(close, fastperiod=fastperiod, slowperiod=slowperiod, signalperiod=signalperiod)
+    return macd, macdsignal, macdhist
 
 
 def MACDEXT(equity, start=None, end=None, fastperiod=12, fastmatype=0, slowperiod=26, slowmatype=0, signalperiod=9, signalmatype=0):
@@ -453,13 +372,10 @@ def MACDEXT(equity, start=None, end=None, fastperiod=12, fastmatype=0, slowperio
     :param signalmatype:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        macd, macdsignal, macdhist = talib.MACDEXT(close, fastperiod=12, fastmatype=0, slowperiod=26, slowmatype=0,
-                                                   signalperiod=9, signalmatype=0)
-        return macd, macdsignal, macdhist
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    macd, macdsignal, macdhist = talib.MACDEXT(close, fastperiod=12, fastmatype=0, slowperiod=26, slowmatype=0,
+                                               signalperiod=9, signalmatype=0)
+    return macd, macdsignal, macdhist
 
 
 def MACDFIX(equity, start=None, end=None, signalperiod=9):
@@ -468,66 +384,54 @@ def MACDFIX(equity, start=None, end=None, signalperiod=9):
     :param signalperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        macd, macdsignal, macdhist = talib.MACDFIX(close, signalperiod=signalperiod)
-        return macd, macdsignal, macdhist
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    macd, macdsignal, macdhist = talib.MACDFIX(close, signalperiod=signalperiod)
+    return macd, macdsignal, macdhist
 
 
 def MFI(equity, start=None, end=None, timeperiod=14):
     """Money Flow Index
 
 
-    NOTE: The MFI function has an unstable period.
+NOTE: The MFI function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        volume = np.array(equity.hp.loc[start:end, 'volume'], dtype='f8')
-        real = talib.MFI(high, low, close, volume, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    volume = np.array(equity.hp.loc[start:end, 'volume'], dtype='f8')
+    real = talib.MFI(high, low, close, volume, timeperiod=timeperiod)
+    return real
 
 
 def MINUS_DI(equity, start=None, end=None, timeperiod=14):
     """Minus Directional Signal
 
 
-    NOTE: The MINUS_DI function has an unstable period.
+NOTE: The MINUS_DI function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.MINUS_DI(high, low, close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.MINUS_DI(high, low, close, timeperiod=timeperiod)
+    return real
 
 
 def MINUS_DM(equity, start=None, end=None, timeperiod=14):
     """Minus Directional Movement
 
 
-    NOTE: The MINUS_DM function has an unstable period.
+NOTE: The MINUS_DM function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        real = talib.MINUS_DM(high, low, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    real = talib.MINUS_DM(high, low, timeperiod=timeperiod)
+    return real
 
 
 def MOM(equity, start=None, end=None, timeperiod=10):
@@ -536,47 +440,38 @@ def MOM(equity, start=None, end=None, timeperiod=10):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.MOM(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)\
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.MOM(close, timeperiod=timeperiod)
+    return real
 
 
 def PLUS_DI(equity, start=None, end=None, timeperiod=14):
     """Plus Directional Signal
 
 
-    NOTE: The PLUS_DI function has an unstable period.
+NOTE: The PLUS_DI function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.PLUS_DI(high, low, close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.PLUS_DI(high, low, close, timeperiod=timeperiod)
+    return real
 
 
 def PLUS_DM(equity, start=None, end=None, timeperiod=14):
     """Plus Directional Movement
 
 
-    NOTE: The PLUS_DM function has an unstable period.
+NOTE: The PLUS_DM function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        real = talib.PLUS_DM(high, low, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    real = talib.PLUS_DM(high, low, timeperiod=timeperiod)
+    return real
 
 
 def PPO(equity, start=None, end=None, fastperiod=12, slowperiod=26, matype=0):
@@ -587,12 +482,9 @@ def PPO(equity, start=None, end=None, fastperiod=12, slowperiod=26, matype=0):
     :param matype:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.PPO(close, fastperiod=fastperiod, slowperiod=slowperiod, matype=matype)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.PPO(close, fastperiod=fastperiod, slowperiod=slowperiod, matype=matype)
+    return real
 
 
 def ROC(equity, start=None, end=None, timeperiod=10):
@@ -601,12 +493,9 @@ def ROC(equity, start=None, end=None, timeperiod=10):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.ROC(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.ROC(close, timeperiod=timeperiod)
+    return real
 
 
 def ROCP(equity, start=None, end=None, timeperiod=10):
@@ -615,12 +504,9 @@ def ROCP(equity, start=None, end=None, timeperiod=10):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.ROCP(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.ROCP(close, timeperiod=timeperiod)
+    return real
 
 
 def ROCR(equity, start=None, end=None, timeperiod=10):
@@ -629,12 +515,9 @@ def ROCR(equity, start=None, end=None, timeperiod=10):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.ROCR(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.ROCR(close, timeperiod=timeperiod)
+    return real
 
 
 def ROCR100(equity, start=None, end=None, timeperiod=10):
@@ -643,28 +526,22 @@ def ROCR100(equity, start=None, end=None, timeperiod=10):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.ROCR100(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.ROCR100(close, timeperiod=timeperiod)
+    return real
 
 
 def RSI(equity, start=None, end=None, timeperiod=14):
     """Relative Strength Index
 
 
-    NOTE: The RSI function has an unstable period.
+NOTE: The RSI function has an unstable period.
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.RSI(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.RSI(close, timeperiod=timeperiod)
+    return real
 
 
 def STOCH(equity, start=None, end=None, fastk_period=5, slowk_period=3, slowk_matype=0, slowd_period=3, slowd_matype=0):
@@ -677,15 +554,12 @@ def STOCH(equity, start=None, end=None, fastk_period=5, slowk_period=3, slowk_ma
     :param slowd_matype:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        slowk, slowd = talib.STOCH(high, low, close, fastk_period=fastk_period, slowk_period=slowk_period,
-                                   slowk_matype=slowk_matype, slowd_period=slowd_period, slowd_matype=slowd_matype)
-        return slowk, slowd
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    slowk, slowd = talib.STOCH(high, low, close, fastk_period=fastk_period, slowk_period=slowk_period,
+                               slowk_matype=slowk_matype, slowd_period=slowd_period, slowd_matype=slowd_matype)
+    return slowk, slowd
 
 
 def STOCHF(equity, start=None, end=None, fastk_period=5, fastd_period=3, fastd_matype=0):
@@ -696,35 +570,29 @@ def STOCHF(equity, start=None, end=None, fastk_period=5, fastd_period=3, fastd_m
     :param fastd_matype:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        fastk, fastd = talib.STOCHF(high, low, close, fastk_period=fastk_period, fastd_period=fastd_period,
-                                    fastd_matype=fastd_matype)
-        return fastk, fastd
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    fastk, fastd = talib.STOCHF(high, low, close, fastk_period=fastk_period, fastd_period=fastd_period,
+                                fastd_matype=fastd_matype)
+    return fastk, fastd
 
 
 def STOCHRSI(equity, start=None, end=None, timeperiod=14, fastk_period=5, fastd_period=3, fastd_matype=0):
     """Stochastic Relative Strength Index
 
 
-    NOTE: The STOCHRSI function has an unstable period.
+NOTE: The STOCHRSI function has an unstable period.
     :param timeperiod:
     :param fastk_period:
     :param fastd_period:
     :param fastd_matype:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        fastk, fastd = talib.STOCHRSI(close, timeperiod=timeperiod, fastk_period=fastk_period,
-                                      fastd_period=fastd_period, fastd_matype=fastd_matype)
-        return fastk, fastd
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    fastk, fastd = talib.STOCHRSI(close, timeperiod=timeperiod, fastk_period=fastk_period,
+                                  fastd_period=fastd_period, fastd_matype=fastd_matype)
+    return fastk, fastd
 
 
 def TRIX(equity, start=None, end=None, timeperiod=30):
@@ -733,12 +601,9 @@ def TRIX(equity, start=None, end=None, timeperiod=30):
     :param timeperiod:
     :return:
     """
-    try:
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.TRIX(close, timeperiod=timeperiod)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.TRIX(close, timeperiod=timeperiod)
+    return real
 
 
 def ULTOSC(equity, start=None, end=None, timeperiod1=7, timeperiod2=14, timeperiod3=28):
@@ -749,13 +614,10 @@ def ULTOSC(equity, start=None, end=None, timeperiod1=7, timeperiod2=14, timeperi
     :param timeperiod3:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.ULTOSC(high, low, close, timeperiod1=timeperiod1, timeperiod2=timeperiod2, timeperiod3=timeperiod3)
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.ULTOSC(high, low, close, timeperiod1=timeperiod1, timeperiod2=timeperiod2, timeperiod3=timeperiod3)
 
 
 def WILLR(equity, start=None, end=None, timeperiod=14):
@@ -764,14 +626,11 @@ def WILLR(equity, start=None, end=None, timeperiod=14):
     :param timeperiod:
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.WILLR(high, low, close, timeperiod=14)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.WILLR(high, low, close, timeperiod=14)
+    return real
 # ========== TECH MOMENTUM INDICATORS **END** ==========
 
 
@@ -782,15 +641,12 @@ def AVGPRICE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.AVGPRICE(opn, high, low, close)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.AVGPRICE(opn, high, low, close)
+    return real
 
 
 def MEDPRICE(equity, start=None, end=None):
@@ -798,13 +654,10 @@ def MEDPRICE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        real = talib.MEDPRICE(high, low)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    real = talib.MEDPRICE(high, low)
+    return real
 
 
 def TYPPRICE(equity, start=None, end=None):
@@ -812,14 +665,11 @@ def TYPPRICE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.TYPPRICE(high, low, close)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.TYPPRICE(high, low, close)
+    return real
 
 
 def WCLPRICE(equity, start=None, end=None):
@@ -827,14 +677,11 @@ def WCLPRICE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        real = talib.WCLPRICE(high, low, close)
-        return real
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    real = talib.WCLPRICE(high, low, close)
+    return real
 # ========== PRICE TRANSFORM FUNCTIONS **END** ==========
 
 
@@ -845,15 +692,12 @@ def CDL2CROWS(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDL2CROWS(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDL2CROWS(opn, high, low, close)
+    return integer
 
 
 def CDL3BLACKCROWS(equity, start=None, end=None):
@@ -861,15 +705,12 @@ def CDL3BLACKCROWS(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDL3BLACKCROWS(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDL3BLACKCROWS(opn, high, low, close)
+    return integer
 
 
 def CDL3INSIDE(equity, start=None, end=None):
@@ -877,15 +718,12 @@ def CDL3INSIDE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDL3INSIDE(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDL3INSIDE(opn, high, low, close)
+    return integer
 
 
 def CDL3LINESTRIKE(equity, start=None, end=None):
@@ -893,15 +731,12 @@ def CDL3LINESTRIKE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDL3LINESTRIKE(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDL3LINESTRIKE(opn, high, low, close)
+    return integer
 
 
 def CDL3OUTSIDE(equity, start=None, end=None):
@@ -909,15 +744,12 @@ def CDL3OUTSIDE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDL3OUTSIDE(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDL3OUTSIDE(opn, high, low, close)
+    return integer
 
 
 def CDL3STARSINSOUTH(equity, start=None, end=None):
@@ -925,15 +757,12 @@ def CDL3STARSINSOUTH(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDL3STARSINSOUTH(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDL3STARSINSOUTH(opn, high, low, close)
+    return integer
 
 
 def CDL3WHITESOLDIERS(equity, start=None, end=None):
@@ -941,15 +770,12 @@ def CDL3WHITESOLDIERS(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDL3WHITESOLDIERS(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDL3WHITESOLDIERS(opn, high, low, close)
+    return integer
 
 
 def CDLABANDONEDBABY(equity, start=None, end=None, penetration=0):
@@ -958,15 +784,12 @@ def CDLABANDONEDBABY(equity, start=None, end=None, penetration=0):
     :param penetration:
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLABANDONEDBABY(opn, high, low, close, penetration=penetration)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLABANDONEDBABY(opn, high, low, close, penetration=penetration)
+    return integer
 
 
 def CDLADVANCEBLOCK(equity, start=None, end=None):
@@ -974,15 +797,12 @@ def CDLADVANCEBLOCK(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLADVANCEBLOCK(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLADVANCEBLOCK(opn, high, low, close)
+    return integer
 
 
 def CDLBELTHOLD(equity, start=None, end=None):
@@ -990,15 +810,12 @@ def CDLBELTHOLD(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLBELTHOLD(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLBELTHOLD(opn, high, low, close)
+    return integer
 
 
 def CDLBREAKAWAY(equity, start=None, end=None):
@@ -1006,15 +823,12 @@ def CDLBREAKAWAY(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLBREAKAWAY(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLBREAKAWAY(opn, high, low, close)
+    return integer
 
 
 def CDLCLOSINGMARUBOZU(equity, start=None, end=None):
@@ -1022,15 +836,12 @@ def CDLCLOSINGMARUBOZU(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLCLOSINGMARUBOZU(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLCLOSINGMARUBOZU(opn, high, low, close)
+    return integer
 
 
 def CDLCONCEALBABYSWALL(equity, start=None, end=None):
@@ -1038,15 +849,12 @@ def CDLCONCEALBABYSWALL(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLCONCEALBABYSWALL(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLCONCEALBABYSWALL(opn, high, low, close)
+    return integer
 
 
 def CDLCOUNTERATTACK(equity, start=None, end=None):
@@ -1054,15 +862,12 @@ def CDLCOUNTERATTACK(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLCOUNTERATTACK(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLCOUNTERATTACK(opn, high, low, close)
+    return integer
 
 
 def CDLDARKCLOUDCOVER(equity, start=None, end=None, penetration=0):
@@ -1071,15 +876,12 @@ def CDLDARKCLOUDCOVER(equity, start=None, end=None, penetration=0):
     :param penetration:
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLDARKCLOUDCOVER(opn, high, low, close, penetration=penetration)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLDARKCLOUDCOVER(opn, high, low, close, penetration=penetration)
+    return integer
 
 
 def CDLDOJI(equity, start=None, end=None):
@@ -1087,15 +889,12 @@ def CDLDOJI(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLDOJI(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLDOJI(opn, high, low, close)
+    return integer
 
 
 def CDLDOJISTAR(equity, start=None, end=None):
@@ -1103,15 +902,12 @@ def CDLDOJISTAR(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLDOJISTAR(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLDOJISTAR(opn, high, low, close)
+    return integer
 
 
 def CDLDRAGONFLYDOJI(equity, start=None, end=None):
@@ -1119,15 +915,12 @@ def CDLDRAGONFLYDOJI(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLDRAGONFLYDOJI(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLDRAGONFLYDOJI(opn, high, low, close)
+    return integer
 
 
 def CDLENGULFING(equity, start=None, end=None):
@@ -1135,15 +928,12 @@ def CDLENGULFING(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLENGULFING(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLENGULFING(opn, high, low, close)
+    return integer
 
 
 def CDLEVENINGDOJISTAR(equity, start=None, end=None, penetration=0):
@@ -1152,15 +942,12 @@ def CDLEVENINGDOJISTAR(equity, start=None, end=None, penetration=0):
     :param penetration:
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLEVENINGDOJISTAR(opn, high, low, close, penetration=penetration)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLEVENINGDOJISTAR(opn, high, low, close, penetration=penetration)
+    return integer
 
 
 def CDLEVENINGSTAR(equity, start=None, end=None, penetration=0):
@@ -1169,15 +956,12 @@ def CDLEVENINGSTAR(equity, start=None, end=None, penetration=0):
     :param penetration:
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLEVENINGSTAR(opn, high, low, close, penetration=penetration)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLEVENINGSTAR(opn, high, low, close, penetration=penetration)
+    return integer
 
 
 def CDLGAPSIDESIDEWHITE(equity, start=None, end=None):
@@ -1185,15 +969,12 @@ def CDLGAPSIDESIDEWHITE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLGAPSIDESIDEWHITE(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLGAPSIDESIDEWHITE(opn, high, low, close)
+    return integer
 
 
 def CDLGRAVESTONEDOJI(equity, start=None, end=None):
@@ -1201,15 +982,12 @@ def CDLGRAVESTONEDOJI(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLGRAVESTONEDOJI(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLGRAVESTONEDOJI(opn, high, low, close)
+    return integer
 
 
 def CDLHAMMER(equity, start=None, end=None):
@@ -1217,15 +995,12 @@ def CDLHAMMER(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLHAMMER(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLHAMMER(opn, high, low, close)
+    return integer
 
 
 def CDLHANGINGMAN(equity, start=None, end=None):
@@ -1233,15 +1008,12 @@ def CDLHANGINGMAN(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLHANGINGMAN(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLHANGINGMAN(opn, high, low, close)
+    return integer
 
 
 def CDLHARAMI(equity, start=None, end=None):
@@ -1249,15 +1021,12 @@ def CDLHARAMI(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLHARAMI(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLHARAMI(opn, high, low, close)
+    return integer
 
 
 def CDLHARAMICROSS(equity, start=None, end=None):
@@ -1265,15 +1034,12 @@ def CDLHARAMICROSS(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLHARAMICROSS(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLHARAMICROSS(opn, high, low, close)
+    return integer
 
 
 def CDLHIGHWAVE(equity, start=None, end=None):
@@ -1281,15 +1047,12 @@ def CDLHIGHWAVE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLHIGHWAVE(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLHIGHWAVE(opn, high, low, close)
+    return integer
 
 
 def CDLHIKKAKE(equity, start=None, end=None):
@@ -1297,15 +1060,12 @@ def CDLHIKKAKE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLHIKKAKE(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLHIKKAKE(opn, high, low, close)
+    return integer
 
 
 def CDLHIKKAKEMOD(equity, start=None, end=None):
@@ -1313,15 +1073,12 @@ def CDLHIKKAKEMOD(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLHIKKAKEMOD(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLHIKKAKEMOD(opn, high, low, close)
+    return integer
 
 
 def CDLHOMINGPIGEON(equity, start=None, end=None):
@@ -1329,15 +1086,12 @@ def CDLHOMINGPIGEON(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLHOMINGPIGEON(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLHOMINGPIGEON(opn, high, low, close)
+    return integer
 
 
 def CDLIDENTICAL3CROWS(equity, start=None, end=None):
@@ -1345,15 +1099,12 @@ def CDLIDENTICAL3CROWS(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLIDENTICAL3CROWS(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLIDENTICAL3CROWS(opn, high, low, close)
+    return integer
 
 
 def CDLINNECK(equity, start=None, end=None):
@@ -1361,15 +1112,12 @@ def CDLINNECK(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLINNECK(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLINNECK(opn, high, low, close)
+    return integer
 
 
 def CDLINVERTEDHAMMER(equity, start=None, end=None):
@@ -1377,15 +1125,12 @@ def CDLINVERTEDHAMMER(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLINVERTEDHAMMER(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLINVERTEDHAMMER(opn, high, low, close)
+    return integer
 
 
 def CDLKICKING(equity, start=None, end=None):
@@ -1393,15 +1138,12 @@ def CDLKICKING(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLKICKING(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLKICKING(opn, high, low, close)
+    return integer
 
 
 def CDLKICKINGBYLENGTH(equity, start=None, end=None):
@@ -1409,15 +1151,12 @@ def CDLKICKINGBYLENGTH(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLKICKINGBYLENGTH(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLKICKINGBYLENGTH(opn, high, low, close)
+    return integer
 
 
 def CDLLADDERBOTTOM(equity, start=None, end=None):
@@ -1425,15 +1164,12 @@ def CDLLADDERBOTTOM(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLLADDERBOTTOM(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLLADDERBOTTOM(opn, high, low, close)
+    return integer
 
 
 def CDLLONGLEGGEDDOJI(equity, start=None, end=None):
@@ -1441,15 +1177,12 @@ def CDLLONGLEGGEDDOJI(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLLONGLEGGEDDOJI(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLLONGLEGGEDDOJI(opn, high, low, close)
+    return integer
 
 
 def CDLLONGLINE(equity, start=None, end=None):
@@ -1457,15 +1190,12 @@ def CDLLONGLINE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLLONGLINE(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLLONGLINE(opn, high, low, close)
+    return integer
 
 
 def CDLMARUBOZU(equity, start=None, end=None):
@@ -1473,15 +1203,12 @@ def CDLMARUBOZU(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLMARUBOZU(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLMARUBOZU(opn, high, low, close)
+    return integer
 
 
 def CDLMATCHINGLOW(equity, start=None, end=None):
@@ -1489,15 +1216,12 @@ def CDLMATCHINGLOW(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLMATCHINGLOW(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLMATCHINGLOW(opn, high, low, close)
+    return integer
 
 
 def CDLMATHOLD(equity, start=None, end=None, penetration=0):
@@ -1506,15 +1230,12 @@ def CDLMATHOLD(equity, start=None, end=None, penetration=0):
     :param penetration:
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLMATHOLD(opn, high, low, close, penetration=penetration)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLMATHOLD(opn, high, low, close, penetration=penetration)
+    return integer
 
 
 def CDLMORNINGDOJISTAR(equity, start=None, end=None, penetration=0):
@@ -1523,15 +1244,12 @@ def CDLMORNINGDOJISTAR(equity, start=None, end=None, penetration=0):
     :param penetration:
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLMORNINGDOJISTAR(opn, high, low, close, penetration=penetration)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLMORNINGDOJISTAR(opn, high, low, close, penetration=penetration)
+    return integer
 
 
 def CDLMORNINGSTAR(equity, start=None, end=None, penetration=0):
@@ -1540,15 +1258,12 @@ def CDLMORNINGSTAR(equity, start=None, end=None, penetration=0):
     :param penetration:
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLMORNINGSTAR(opn, high, low, close, penetration=penetration)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLMORNINGSTAR(opn, high, low, close, penetration=penetration)
+    return integer
 
 
 def CDLONNECK(equity, start=None, end=None):
@@ -1556,15 +1271,12 @@ def CDLONNECK(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLONNECK(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLONNECK(opn, high, low, close)
+    return integer
 
 
 def CDLPIERCING(equity, start=None, end=None):
@@ -1572,15 +1284,12 @@ def CDLPIERCING(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLPIERCING(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLPIERCING(opn, high, low, close)
+    return integer
 
 
 def CDLRICKSHAWMAN(equity, start=None, end=None):
@@ -1588,15 +1297,12 @@ def CDLRICKSHAWMAN(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLRICKSHAWMAN(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLRICKSHAWMAN(opn, high, low, close)
+    return integer
 
 
 def CDLRISEFALL3METHODS(equity, start=None, end=None):
@@ -1604,15 +1310,12 @@ def CDLRISEFALL3METHODS(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLRISEFALL3METHODS(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLRISEFALL3METHODS(opn, high, low, close)
+    return integer
 
 
 def CDLSEPARATINGLINES(equity, start=None, end=None):
@@ -1620,15 +1323,12 @@ def CDLSEPARATINGLINES(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLSEPARATINGLINES(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLSEPARATINGLINES(opn, high, low, close)
+    return integer
 
 
 def CDLSHOOTINGSTAR(equity, start=None, end=None):
@@ -1636,15 +1336,12 @@ def CDLSHOOTINGSTAR(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLSHOOTINGSTAR(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLSHOOTINGSTAR(opn, high, low, close)
+    return integer
 
 
 def CDLSHORTLINE(equity, start=None, end=None):
@@ -1652,15 +1349,12 @@ def CDLSHORTLINE(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLSHORTLINE(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLSHORTLINE(opn, high, low, close)
+    return integer
 
 
 def CDLSPINNINGTOP(equity, start=None, end=None):
@@ -1668,15 +1362,12 @@ def CDLSPINNINGTOP(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLSPINNINGTOP(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLSPINNINGTOP(opn, high, low, close)
+    return integer
 
 
 def CDLSTALLEDPATTERN(equity, start=None, end=None):
@@ -1684,15 +1375,12 @@ def CDLSTALLEDPATTERN(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLSTALLEDPATTERN(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLSTALLEDPATTERN(opn, high, low, close)
+    return integer
 
 
 def CDLSTICKSANDWICH(equity, start=None, end=None):
@@ -1700,15 +1388,12 @@ def CDLSTICKSANDWICH(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLSTICKSANDWICH(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLSTICKSANDWICH(opn, high, low, close)
+    return integer
 
 
 def CDLTAKURI(equity, start=None, end=None):
@@ -1716,15 +1401,12 @@ def CDLTAKURI(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLTAKURI(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLTAKURI(opn, high, low, close)
+    return integer
 
 
 def CDLTASUKIGAP(equity, start=None, end=None):
@@ -1732,15 +1414,12 @@ def CDLTASUKIGAP(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLTASUKIGAP(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLTASUKIGAP(opn, high, low, close)
+    return integer
 
 
 def CDLTHRUSTING(equity, start=None, end=None):
@@ -1748,15 +1427,12 @@ def CDLTHRUSTING(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLTHRUSTING(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLTHRUSTING(opn, high, low, close)
+    return integer
 
 
 def CDLTRISTAR(equity, start=None, end=None):
@@ -1764,15 +1440,12 @@ def CDLTRISTAR(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLTRISTAR(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLTRISTAR(opn, high, low, close)
+    return integer
 
 
 def CDLUNIQUE3RIVER(equity, start=None, end=None):
@@ -1780,15 +1453,12 @@ def CDLUNIQUE3RIVER(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLUNIQUE3RIVER(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLUNIQUE3RIVER(opn, high, low, close)
+    return integer
 
 
 def CDLUPSIDEGAP2CROWS(equity, start=None, end=None):
@@ -1796,15 +1466,12 @@ def CDLUPSIDEGAP2CROWS(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLUPSIDEGAP2CROWS(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLUPSIDEGAP2CROWS(opn, high, low, close)
+    return integer
 
 
 def CDLXSIDEGAP3METHODS(equity, start=None, end=None):
@@ -1812,15 +1479,12 @@ def CDLXSIDEGAP3METHODS(equity, start=None, end=None):
 
     :return:
     """
-    try:
-        opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
-        high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
-        low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
-        close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
-        integer = talib.CDLXSIDEGAP3METHODS(opn, high, low, close)
-        return integer
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    opn = np.array(equity.hp.loc[start:end, 'open'], dtype='f8')
+    high = np.array(equity.hp.loc[start:end, 'high'], dtype='f8')
+    low = np.array(equity.hp.loc[start:end, 'low'], dtype='f8')
+    close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
+    integer = talib.CDLXSIDEGAP3METHODS(opn, high, low, close)
+    return integer
 # ========== PATTERN RECOGNITION FUNCTIONS **END** ==========
 
 if __name__ == '__main__':
@@ -1828,7 +1492,7 @@ if __name__ == '__main__':
     import Core.Instrument.Equity
     today = datetime.date(2017,8,30)
 
-    eq = Core.Instrument.Equity.Equity('AAPL', 'Apple, Inc.')
+    eq = Core.Instrument.Equity.Equity('AAPL')
     eq.get_hp()
     print((CDLSPINNINGTOP(eq)))
     print('ok')

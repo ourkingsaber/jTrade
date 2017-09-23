@@ -22,81 +22,64 @@ class Position(object):
         self.order_history = OrderedDict()
 
     def place_order(self, order : App.Trading.Order.Order):
-        try:
-            assert self.equity is order.equity
-            if self.share * order.share >= 0:       # add position
-                self.cost += order.total
-            else:                                   # in the direction of closing out position
-                self.real_gain -= order.total - self.avg_cost() * order.share
-                self.cost *= (self.share + order.share) / self.share
-            self.share += order.share
-            self.current_date = order.date
-            #todo: saving to DB should be separate.
-            self.order_history[order.date] = {
-                'symbol': order.equity.symbol,
-                'date': order.date,
-                'share': order.share,
-                'price': order.price,
-                'fee': order.fee,
-                'total': order.total
-            }
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        assert self.equity is order.equity
+        if self.share * order.share >= 0:       # add position
+            self.cost += order.total
+        else:                                   # in the direction of closing out position
+            self.real_gain -= order.total - self.avg_cost() * order.share
+            self.cost *= (self.share + order.share) / self.share
+        self.share += order.share
+        self.current_date = order.date
+        #todo: saving to DB should be separate.
+        self.order_history[order.date] = {
+            'symbol': order.equity.symbol,
+            'date': order.date,
+            'share': order.share,
+            'price': order.price,
+            'fee': order.fee,
+            'total': order.total
+        }
 
     def save_balance(self):
-        try:
-            self.bal_history[self.current_date] = {
-                'symbol': self.equity.symbol,
-                'date': self.current_date,
-                'share': self.share,
-                'price': self.equity.price,
-                'value': self.value(),
-                'cost': self.cost,
-                'real_gain': self.real_gain
-            }
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        self.bal_history[self.current_date] = {
+            'symbol': self.equity.symbol,
+            'date': self.current_date,
+            'share': self.share,
+            'price': self.equity.price,
+            'value': self.value(),
+            'cost': self.cost,
+            'real_gain': self.real_gain
+        }
 
     def value(self):
-        try:
-            return self.equity.price * self.share
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        return self.equity.price * self.share
 
     def avg_cost(self):
-        try:
-            if self.share == 0:
-                return 0
-            return self.cost / self.share
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        if self.share == 0:
+            return 0
+        return self.cost / self.share
 
     def get_balance_history(self, start=None):
-        try:
-            if not start:
-                filtr = {('symbol', '='): self.equity.symbol}
-            else:
-                filtr = {'&': {('symbol', '='): self.equity.symbol,
-                               ('date', '>='): start}}
-            hist_df = dbmanager.select(Data.Table.Position, filtr)
-            self.bal_history = Util.Convert.dataframe_to_ordereddict(hist_df)
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        if not start:
+            filtr = {('symbol', '='): self.equity.symbol}
+        else:
+            filtr = {'&': {('symbol', '='): self.equity.symbol,
+                           ('date', '>='): start}}
+        hist_df = dbmanager.select(Data.Table.Position, filtr)
+        self.bal_history = Util.Convert.dataframe_to_ordereddict(hist_df)
 
     def get_order_history(self, start=None):
-        try:
-            if not start:
-                filtr = {('symbol', '='): self.equity.symbol}
-            else:
-                filtr = {'&': {('symbol', '='): self.equity.symbol,
-                               ('date', '>='): start}}
-            hist_df = dbmanager.select(Data.Table.Order, filtr)
-            self.order_history = Util.Convert.dataframe_to_ordereddict(hist_df)
-        except Exception as e:
-            raise e.with_traceback(e.__traceback__)
+        if not start:
+            filtr = {('symbol', '='): self.equity.symbol}
+        else:
+            filtr = {'&': {('symbol', '='): self.equity.symbol,
+                           ('date', '>='): start}}
+        hist_df = dbmanager.select(Data.Table.Order, filtr)
+        self.order_history = Util.Convert.dataframe_to_ordereddict(hist_df)
+
 
 if __name__ == '__main__':
-    e = Core.Instrument.Equity.Equity('AAPL', 'Apple')
+    e = Core.Instrument.Equity.Equity('AAPL')
     p = Position(e)
     fm = App.Trading.FeeModel.FixedFlat(10)
     o = App.Trading.Order.Order(e, datetime.date(2017, 1, 1), 100, 100, fm)

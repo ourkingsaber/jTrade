@@ -4,48 +4,29 @@ import pandas as pd
 from collections import OrderedDict
 
 
-# def date_to_np(dt_date : datetime.date):
-#     try:
-#         return np.datetime64(dt_date)
-#     except Exception as e:
-#         raise e.with_traceback(e.__traceback__)
-#
-#
-# def np_to_date(np_date : np.datetime64):
-#     try:
-#         iso = np.datetime_as_string(np_date)
-#         return datetime.datetime.strptime(iso, '%Y-%m-%d').date()
-#     except Exception as e:
-#         raise e.with_traceback(e.__traceback__)
-#
-#
-# def time_to_np(dt_datetime : datetime.datetime):
-#     try:
-#         return np.datetime64(dt_datetime)
-#     except Exception as e:
-#         raise e.with_traceback(e.__traceback__)
-#
-#
-# def np_to_time(np_datetime : np.datetime64):
-#     try:
-#         iso = np.datetime_as_string(np_datetime)
-#         return datetime.datetime.strptime(iso, '%Y-%m-%dT%H:%M:%S')
-#     except Exception as e:
-#         raise e.with_traceback(e.__traceback__)
+def date_to_np(dt_date : datetime.date):
+    return np.datetime64(dt_date)
+
+
+def np_to_date(np_date : np.datetime64):
+    iso = np.datetime_as_string(np_date)
+    return datetime.datetime.strptime(iso, '%Y-%m-%d').date()
+
+
+def time_to_np(dt_datetime : datetime.datetime):
+    return np.datetime64(dt_datetime)
+
+
+def np_to_time(np_datetime : np.datetime64):
+    iso = np.datetime_as_string(np_datetime)
+    return datetime.datetime.strptime(iso, '%Y-%m-%dT%H:%M:%S')
 
 def ordereddict_to_dataframe(od : OrderedDict, idx_col='date'):
-    try:
-
-        df = pd.DataFrame.from_dict(od, orient='index')
-        return df
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    df = pd.DataFrame.from_dict(od, orient='index')
+    return df
 
 def dataframe_to_ordereddict(df : pd.DataFrame):
-    try:
-        return df.to_dict('index')
-    except Exception as e:
-        raise e.with_traceback(e.__traceback__)
+    return df.to_dict('index')
 
 if __name__ == '__main__':
     # print(date_to_np(datetime.date.today()))
