@@ -12,6 +12,7 @@ thumbs.db
 /Log/*
 /Data/*
 /Doc/ProgressTracker.xlsx
+/jTrade/Util/Credential.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -114,4 +115,3 @@ ENV/
 
 # mypy
 .mypy_cache/
-

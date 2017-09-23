@@ -1,12 +1,13 @@
-import pandas as pd
 import datetime
 from collections import OrderedDict
-import App.Trade.Order
-import App.Trade.FeeModel
+
+import App.Trading.FeeModel
+import App.Trading.Order
 import Core.Instrument.Equity
-from Data.DB.DBManager import dbmanager
-import Data.DB.Table
+import Data.Table
 import Util.Convert
+from Data.DBManager import dbmanager
+
 
 class Position(object):
     """Position class."""
@@ -20,7 +21,7 @@ class Position(object):
         self.bal_history = OrderedDict()
         self.order_history = OrderedDict()
 
-    def place_order(self, order : App.Trade.Order.Order):
+    def place_order(self, order : App.Trading.Order.Order):
         try:
             assert self.equity is order.equity
             if self.share * order.share >= 0:       # add position
@@ -77,7 +78,7 @@ class Position(object):
             else:
                 filtr = {'&': {('symbol', '='): self.equity.symbol,
                                ('date', '>='): start}}
-            hist_df = dbmanager.select(Data.DB.Table.Position, filtr)
+            hist_df = dbmanager.select(Data.Table.Position, filtr)
             self.bal_history = Util.Convert.dataframe_to_ordereddict(hist_df)
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
@@ -89,7 +90,7 @@ class Position(object):
             else:
                 filtr = {'&': {('symbol', '='): self.equity.symbol,
                                ('date', '>='): start}}
-            hist_df = dbmanager.select(Data.DB.Table.Order, filtr)
+            hist_df = dbmanager.select(Data.Table.Order, filtr)
             self.order_history = Util.Convert.dataframe_to_ordereddict(hist_df)
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
@@ -97,26 +98,26 @@ class Position(object):
 if __name__ == '__main__':
     e = Core.Instrument.Equity.Equity('AAPL', 'Apple')
     p = Position(e)
-    fm = App.Trade.FeeModel.FixedFlat(10)
-    o = App.Trade.Order.Order(e, datetime.date(2017,1,1), 100, 100, fm)
+    fm = App.Trading.FeeModel.FixedFlat(10)
+    o = App.Trading.Order.Order(e, datetime.date(2017, 1, 1), 100, 100, fm)
     p.place_order(o)
     e.price = 100
     p.save_balance()
     print(Util.Convert.ordereddict_to_dataframe(p.order_history))
     print(Util.Convert.ordereddict_to_dataframe(p.bal_history))
-    o = App.Trade.Order.Order(e, datetime.date(2017,1,2), -50, 100, fm)
+    o = App.Trading.Order.Order(e, datetime.date(2017, 1, 2), -50, 100, fm)
     p.place_order(o)
     e.price = 112
     p.save_balance()
     print(Util.Convert.ordereddict_to_dataframe(p.order_history))
     print(Util.Convert.ordereddict_to_dataframe(p.bal_history))
-    o = App.Trade.Order.Order(e, datetime.date(2017,1,3), 50, 120, fm)
+    o = App.Trading.Order.Order(e, datetime.date(2017, 1, 3), 50, 120, fm)
     p.place_order(o)
     e.price = 122
     p.save_balance()
     print(Util.Convert.ordereddict_to_dataframe(p.order_history))
     print(Util.Convert.ordereddict_to_dataframe(p.bal_history))
-    o = App.Trade.Order.Order(e, datetime.date(2017,1,4), -100, 120, fm)
+    o = App.Trading.Order.Order(e, datetime.date(2017, 1, 4), -100, 120, fm)
     p.place_order(o)
     e.price = 112
     p.save_balance()

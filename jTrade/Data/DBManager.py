@@ -1,12 +1,14 @@
 import datetime
-import numpy as np
+
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.sql import and_, or_, not_, select
+from sqlalchemy.sql import and_, or_, select
+
+import Data.Table
 import Util.Const
 import Util.Convert
-import Data.DB.Table
+import Util.Credential
 
 
 class DBManager(object):
@@ -17,7 +19,7 @@ class DBManager(object):
     _logic_op = {'&', '|'}
     _filter_op = {'=', '!=', '>', '<', '>=', '<='}
 
-    def __init__(self, info : dict=Util.Const.LOCAL_DEV_INFO):
+    def __init__(self, info : dict= Util.Credential.local_dev_db):
         try:
             self._engine = create_engine('{}://{}:{}@{}:{}/{}'.format(info['type'], info['user'], info['pw'],
                                                                       info['host'], info['port'], info['db']))
@@ -25,16 +27,19 @@ class DBManager(object):
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
 
-    def select(self, table : Data.DB.Table.Table, filter_dict, index_col='date', parse_dates=['date']):
+    def select(self, table : Data.Table.Table, filter_dict, index_col='date', parse_dates=['date']):
         try:
             sql_filter = DBManager.dict_to_sql_filter(table, filter_dict)
             s = select([table]).where(sql_filter)
-            df = pd.read_sql(s, self._engine, index_col=index_col, parse_dates=parse_dates)
+            if parse_dates:
+                df = pd.read_sql(s, self._engine, index_col=index_col, parse_dates=parse_dates)
+            else:
+                df = pd.read_sql(s, self._engine)
             return df
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
 
-    def insert(self, table : Data.DB.Table.Table, values_list):
+    def insert(self, table : Data.Table.Table, values_list):
         try:
             conn = self._engine.connect()
             if not isinstance(values_list, list):
@@ -46,7 +51,7 @@ class DBManager(object):
         except Exception as e:
             raise e.with_traceback(e.__traceback__)
 
-    def insert_df(self, table : Data.DB.Table.Table, dataframe : pd.DataFrame, if_exists='append', index=False):
+    def insert_df(self, table : Data.Table.Table, dataframe : pd.DataFrame, if_exists='append', index=False):
         """Inserts a dataframe into database.
 
         :param table:
@@ -63,7 +68,7 @@ class DBManager(object):
             raise e.with_traceback(e.__traceback__)
 
     @staticmethod
-    def dict_to_sql_filter(table : Data.DB.Table.Table, filter_dict : dict):
+    def dict_to_sql_filter(table : Data.Table.Table, filter_dict : dict):
         """
         :param table: python class.
         :param filter_dict: {'&': {('symbol','='): 'AAPL', ('date', '>'): datetime.date(2017,1,1)}}
@@ -102,17 +107,17 @@ class DBManager(object):
 
 # common DBManager for application
 # todo: check if this is the general approach
-dbmanager = DBManager(Util.Const.LOCAL_DEV_INFO)
+dbmanager = DBManager(Util.Credential.local_dev_db)
 
 
 if __name__ == '__main__':
     filtr = {'&': {('symbol', '='): 'AAPL',
                    ('date', '='): datetime.date(2017,8,21)}}
-    test = dbmanager.select(Data.DB.Table.EquityHP, filtr)
+    test = dbmanager.select(Data.Table.EquityHP, filtr)
     print(test)
     #
     filtr = {('date', '='): datetime.date(2017, 8, 21)}
-    tests = dbmanager.select(Data.DB.Table.EquityHP, filtr)
+    tests = dbmanager.select(Data.Table.EquityHP, filtr)
     print(tests)
 
     # res = dbmanager.select(Data.DB.Table.EquityHP, {('symbol','='):'AAPL'})
@@ -129,4 +134,4 @@ if __name__ == '__main__':
         'pct_ret': [0,0],
         'abs_ret': [0,0]
     })
-    dbmanager.insert_df(Data.DB.Table.Position, df, 'append', False)
+    dbmanager.insert_df(Data.Table.Position, df, 'append', False)

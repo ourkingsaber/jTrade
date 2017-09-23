@@ -1,9 +1,11 @@
 import datetime
 from collections import OrderedDict
+
 import pandas as pd
-import App.Trade.FeeModel
+
+import App.Trading.FeeModel
 import Core.Instrument.Equity
-from Data.DB.DBManager import dbmanager
+
 
 class Order(object):
     """Order class"""
@@ -39,7 +41,7 @@ class Order(object):
 
 if __name__ == '__main__':
     test = Core.Instrument.Equity.Equity('AAPL', 'Apple, Inc.')
-    fm = App.Trade.FeeModel.FixedFlat(100)
+    fm = App.Trading.FeeModel.FixedFlat(100)
     a = Order(test, datetime.date.today(), 100, 50, fm)
     print(a.total)
     print(a.to_df())
