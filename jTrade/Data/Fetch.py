@@ -1,4 +1,3 @@
-
 import base64
 import json
 import urllib.parse
@@ -6,7 +5,7 @@ import urllib.request
 import quandl
 import datetime
 import pandas as pd
-from rpy2.robjects import packages as rpackages, pandas2ri, r
+# from rpy2.robjects import packages as rpackages, pandas2ri, r
 
 import Util.Credential
 import Data.Table
@@ -154,28 +153,28 @@ class Yahoo(object):
         return json.loads(result)
 
 
-class QuantMod(object):
-    """Fetches data using quantmod, an R package."""
-
-    quantmod = rpackages.importr('quantmod')
-    pandas2ri.activate()
-
-    @staticmethod
-    def EquityHP(symbol, start, end):
-        # gets a ndarray
-        r('{} = getSymbols("{}",from="{}",to="{}",src="google",auto.assign=F)'.format(
-            symbol+'.hp', symbol, start.isoformat(), end.isoformat()))
-        # convert to dataframe
-        r('{} = data.frame(date=index({}), coredata({}))'.format(symbol+'.hp', symbol+'.hp', symbol+'.hp'))
-        hps = pd.DataFrame(r[symbol+'.hp'])
-        # convert days since epoch to datetime
-        epoch = datetime.date(1970, 1, 1)
-        hps.loc[:,'date'] = [epoch+datetime.timedelta(days=int(d)) for d in hps.loc[:,'date']]
-        # add column of symbol
-        hps['symbol'] = symbol
-        # convert column names
-        hps.columns = [name.split('.')[-1].lower() for name in hps.columns]
-        return hps
+# class QuantMod(object):
+#     """Fetches data using quantmod, an R package."""
+#
+#     quantmod = rpackages.importr('quantmod')
+#     pandas2ri.activate()
+#
+#     @staticmethod
+#     def EquityHP(symbol, start, end):
+#         # gets a ndarray
+#         r('{} = getSymbols("{}",from="{}",to="{}",src="google",auto.assign=F)'.format(
+#             symbol+'.hp', symbol, start.isoformat(), end.isoformat()))
+#         # convert to dataframe
+#         r('{} = data.frame(date=index({}), coredata({}))'.format(symbol+'.hp', symbol+'.hp', symbol+'.hp'))
+#         hps = pd.DataFrame(r[symbol+'.hp'])
+#         # convert days since epoch to datetime
+#         epoch = datetime.date(1970, 1, 1)
+#         hps.loc[:,'date'] = [epoch+datetime.timedelta(days=int(d)) for d in hps.loc[:,'date']]
+#         # add column of symbol
+#         hps['symbol'] = symbol
+#         # convert column names
+#         hps.columns = [name.split('.')[-1].lower() for name in hps.columns]
+#         return hps
 
 
 if __name__ == '__main__':
