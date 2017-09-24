@@ -19,7 +19,7 @@ class DBManager(object):
     _logic_op = {'&', '|'}
     _filter_op = {'=', '!=', '>', '<', '>=', '<='}
 
-    def __init__(self, info : dict= Util.Credential.local_dev_db):
+    def __init__(self, info : dict=Util.Credential.default_db):
         self._engine = create_engine('{}://{}:{}@{}:{}/{}'.format(info['type'], info['user'], info['pw'],
                                                                   info['host'], info['port'], info['db']))
         self._DBSession = sessionmaker(bind=self._engine)
