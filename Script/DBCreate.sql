@@ -269,6 +269,5 @@ CREATE TABLE `jTrade_dev`.`EquityFinFund` (
   `preferredtocap` FLOAT NULL,
   `noncontrolinttocap` FLOAT NULL,
   `commontocap` FLOAT NULL,
-  `debttoebitda` FLOAT NULL;
-
+  `debttoebitda` FLOAT NULL,
   PRIMARY KEY (`symbol`, `year`, `period`));

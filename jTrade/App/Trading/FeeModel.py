@@ -7,10 +7,13 @@ class FeeModel(metaclass=ABCMeta):
 
     @abstractmethod
     def calculate(self, share, price):
+        """Calculates fee"""
         return
 
 
 class FixedFlat(FeeModel):
+    """Charges a flat rate for each order"""
+
     def __init__(self, flat_rate=0):
         self.flat_rate = flat_rate
 
@@ -19,6 +22,8 @@ class FixedFlat(FeeModel):
 
 
 class FixedRatio(FeeModel):
+    """Charges a fixed ratio for each order"""
+
     def __init__(self, flat_rate, cap=None, floor=None):
         self.flat_rate = flat_rate
         self.cap = cap

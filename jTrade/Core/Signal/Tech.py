@@ -35,7 +35,7 @@ def EMA(equity, start=None, end=None, timeperiod=30):
     """Exponential Moving Average
 
 
-NOTE: The EMA function has an unstable period.
+    NOTE: The EMA function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -48,7 +48,7 @@ def HT_TRENDLINE(equity, start=None, end=None):
     """Hilbert Transform - Instantaneous Trendline
 
 
-NOTE: The HT_TRENDLINE function has an unstable period.
+    NOTE: The HT_TRENDLINE function has an unstable period.
     :return:
     """
     close = np.array(equity.hp.loc[start:end, 'close'], dtype='f8')
@@ -60,7 +60,7 @@ def KAMA(equity, start=None, end=None, timeperiod=30):
     """Kaufman Adaptive Moving Average
 
 
-NOTE: The KAMA function has an unstable period.
+    NOTE: The KAMA function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -85,7 +85,7 @@ def MAMA(equity, start=None, end=None, fastlimit=0, slowlimit=0):
     """MESA Adaptive Moving Average
 
 
-NOTE: The MAMA function has an unstable period.
+    NOTE: The MAMA function has an unstable period.
     :param fastlimit:
     :param slowlimit:
     :return:
@@ -182,7 +182,7 @@ def T3(equity, start=None, end=None, timeperiod=5, vfactor=0):
     """Triple Exponential Moving Average (T3)
 
 
-NOTE: The T3 function has an unstable period.
+    NOTE: The T3 function has an unstable period.
     :param timeperiod:
     :param vfactor:
     :return:
@@ -232,7 +232,7 @@ def ADX(equity, start=None, end=None, timeperiod=14):
     """Average Directional Movement Index
 
 
-NOTE: The ADX function has an unstable period.
+    NOTE: The ADX function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -247,7 +247,7 @@ def ADXR(equity, start=None, end=None, timeperiod=14):
     """Average Directional Movement Index Rating
 
 
-NOTE: The ADXR function has an unstable period.
+    NOTE: The ADXR function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -324,7 +324,7 @@ def CCI(equity, start=None, end=None, timeperiod=14):
 def CMO(equity, start=None, end=None, timeperiod=14):
     """Chande Momentum Oscillator
 
-NOTE: The CMO function has an unstable period.
+    NOTE: The CMO function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -337,7 +337,7 @@ def DX(equity, start=None, end=None, timeperiod=14):
     """Directional Movement Index
 
 
-NOTE: The DX function has an unstable period.
+    NOTE: The DX function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -393,7 +393,7 @@ def MFI(equity, start=None, end=None, timeperiod=14):
     """Money Flow Index
 
 
-NOTE: The MFI function has an unstable period.
+    NOTE: The MFI function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -409,7 +409,7 @@ def MINUS_DI(equity, start=None, end=None, timeperiod=14):
     """Minus Directional Signal
 
 
-NOTE: The MINUS_DI function has an unstable period.
+    NOTE: The MINUS_DI function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -424,7 +424,7 @@ def MINUS_DM(equity, start=None, end=None, timeperiod=14):
     """Minus Directional Movement
 
 
-NOTE: The MINUS_DM function has an unstable period.
+    NOTE: The MINUS_DM function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -449,7 +449,7 @@ def PLUS_DI(equity, start=None, end=None, timeperiod=14):
     """Plus Directional Signal
 
 
-NOTE: The PLUS_DI function has an unstable period.
+    NOTE: The PLUS_DI function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -464,7 +464,7 @@ def PLUS_DM(equity, start=None, end=None, timeperiod=14):
     """Plus Directional Movement
 
 
-NOTE: The PLUS_DM function has an unstable period.
+    NOTE: The PLUS_DM function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -535,7 +535,7 @@ def RSI(equity, start=None, end=None, timeperiod=14):
     """Relative Strength Index
 
 
-NOTE: The RSI function has an unstable period.
+    NOTE: The RSI function has an unstable period.
     :param timeperiod:
     :return:
     """
@@ -582,7 +582,7 @@ def STOCHRSI(equity, start=None, end=None, timeperiod=14, fastk_period=5, fastd_
     """Stochastic Relative Strength Index
 
 
-NOTE: The STOCHRSI function has an unstable period.
+    NOTE: The STOCHRSI function has an unstable period.
     :param timeperiod:
     :param fastk_period:
     :param fastd_period:

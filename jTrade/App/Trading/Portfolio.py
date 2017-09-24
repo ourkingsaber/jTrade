@@ -10,7 +10,7 @@ class Portfolio(object):
 
     def place_order(self, order : App.Trading.Order):
         pos = self.positions.get(order.equity.symbol)
-        if not pos:
+        if not pos:     # establish new pos if not exist
             self.positions[order.equity.symbol] = App.Trading.Position.Position(order.equity)
         self.positions[order.equity.symbol].place_order(order)
 

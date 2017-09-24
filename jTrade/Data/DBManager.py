@@ -92,7 +92,7 @@ class DBManager(object):
 
 # common DBManager for application
 # todo: check if this is the general approach
-dbmanager = DBManager(Util.Credential.local_dev_db)
+dbmanager = DBManager(Util.Credential.default_db)
 
 
 if __name__ == '__main__':

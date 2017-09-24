@@ -35,7 +35,6 @@ class Intrino(object):
             raise ValueError('{} is not a valid statement'.format(statement))
         if period not in ('FY','Q1','Q2','Q3','Q4','Q1TTM','Q2TTM','Q3TTM','Q2YTD','Q3YTD'):
             raise ValueError('{} is not a period'.format(period))
-        # todo: this might change with paid plan
         req = urllib.request.Request(
             'https://api.intrinio.com/financials/standardized?identifier={}&statement={}&fiscal_year={}&fiscal_period={}'.format(
             symbol, statement, year, period))
@@ -58,6 +57,7 @@ class Intrino(object):
 
     @staticmethod
     def is_duplicate(symbol, year, period, statement):
+        """Checks duplicate to reduce number of queries (Intrino has daily limit)"""
         fltr = {'&': {
             ('symbol', '='): symbol,
             ('year', '='): year,
@@ -240,5 +240,9 @@ if __name__ == '__main__':
     # hp = Quandl.EquityHP(s, datetime.date(2017, 1, 1), datetime.date(2017, 1, 10))
     # print(hp.shape[0])
 
+    a = datetime.datetime.now()
+    for i in range(100):
+        b = Intrino.is_duplicate('AAPL', 2017, 'Q1', 'cash_flow_statement')
+    print(datetime.datetime.now() - a)
 
 
