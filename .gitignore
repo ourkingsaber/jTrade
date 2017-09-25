@@ -1,3 +1,13 @@
+# Project Specific
+/Log/*
+/Data/*
+/Doc/ProgressTracker.xlsx
+/jTrade/Util/Credential.py
+/jTrade/Util/jTradeEC2.pem
+/Script/EC2.sh
+/Script/rtosql.r
+
+
 # Mac
 *~
 .DS_Store
@@ -8,11 +18,25 @@ thumbs.db
 # PyCharm
 .idea/
 
-# Project Specific
-/Log/*
-/Data/*
-/Doc/ProgressTracker.xlsx
-/jTrade/Util/Credential.py
+# Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+.vs/
+*.sln
+
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -115,3 +139,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+
+

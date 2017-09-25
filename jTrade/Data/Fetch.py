@@ -9,18 +9,19 @@ import pandas as pd
 
 import Util.Credential
 import Data.Table
+from Util.ErrorHandling import *
 
 quandl.ApiConfig.api_key = Util.Credential.quandl['apikey']
 
 
-class Intrino(object):
+class Intrinio(object):
     """Fetch data from Intrino"""
 
     @staticmethod
     def EquityFin(symbol, year, period, statement):
-        response = Intrino._EquityFin_query(symbol, year, period, statement)
+        response = Intrinio._EquityFin_query(symbol, year, period, statement)
         if not response['data']:
-            raise ValueError('No data for input: {}, {}, {}, {}'.format(symbol, year, period, statement))
+            raise NoDataError('No data for input: {}, {}, {}, {}'.format(symbol, year, period, statement))
         resdict = {item['tag']: [item['value'] if isinstance(item['value'], float) else None] for item in response['data']}
         resdict['symbol'] = symbol
         resdict['year'] = year
@@ -62,7 +63,7 @@ class Intrino(object):
             ('year', '='): year,
             ('period', '='): period
         }}
-        df = dbmanager.select(Intrino.stmt_to_table(statement), fltr, parse_dates=False)
+        df = dbmanager.select(Intrinio.stmt_to_table(statement), fltr, parse_dates=False)
         return df.shape[0] > 0
 
 
@@ -153,6 +154,7 @@ class Yahoo(object):
         return json.loads(result)
 
 
+
 # class QuantMod(object):
 #     """Fetches data using quantmod, an R package."""
 #
@@ -185,7 +187,7 @@ if __name__ == '__main__':
     # print(Yahoo.EquityHP('AAPL', '1y'))
 
     # print(Intrino._EquityFin_query('DDD', 2000, 'Q1', 'cash_flow_statement'))
-    # print(Intrino.EquityFin('AAPL', 2010, 'Q2', 'balance_sheet'))
+    print(Intrinio.EquityFin('FB', 2010, 'Q1', 'balance_sheet'))
 
 
     sym = 'AAPL'
@@ -235,13 +237,13 @@ if __name__ == '__main__':
     #             except Exception as e:
     #                 print(e.with_traceback(e.__traceback__))
 
-    s = ['AAPL','FB']
+    # s = ['AAPL','FB']
     # hp = Quandl.EquityHP(s, datetime.date(2017, 1, 1), datetime.date(2017, 1, 10))
     # print(hp.shape[0])
 
-    a = datetime.datetime.now()
-    for i in range(100):
-        b = Intrino.is_duplicate('AAPL', 2017, 'Q1', 'cash_flow_statement')
-    print(datetime.datetime.now() - a)
+    # a = datetime.datetime.now()
+    # for i in range(100):
+    #     b = Intrino.is_duplicate('AAPL', 2017, 'Q1', 'cash_flow_statement')
+    # print(datetime.datetime.now() - a)
 
 

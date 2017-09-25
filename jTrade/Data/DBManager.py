@@ -55,6 +55,15 @@ class DBManager(object):
         dataframe.to_sql(str(table.name), self._engine, schema=self._engine.url.database,
                          if_exists=if_exists, index=index, dtype=dtype)
 
+    def execute(self, query):
+        """Executes a sql query
+
+        :param query:
+        :return:
+        """
+        conn = self._engine.connect()
+        return conn.execute(query).fetchall()
+
     @staticmethod
     def dict_to_sql_filter(table : Data.Table.Table, filter_dict : dict):
         """
@@ -71,8 +80,6 @@ class DBManager(object):
                 sql_filter = and_(*child_filters)
             elif k == '|':
                 sql_filter = or_(*child_filters)
-            else:
-                raise ValueError('{} is not a valid operator'.format(k))
         else:
             if k[1] == '=':
                 sql_filter = table.columns[k[0]] == v
