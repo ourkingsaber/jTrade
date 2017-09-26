@@ -12,9 +12,7 @@ import Util.Credential
 
 
 class DBManager(object):
-    """
-    Database manager responsible for interaction with sql db.
-    """
+    """Database manager responsible for interaction with sql db."""
 
     _logic_op = {'&', '|'}
     _filter_op = {'=', '!=', '>', '<', '>=', '<='}

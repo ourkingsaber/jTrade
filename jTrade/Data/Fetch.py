@@ -15,13 +15,13 @@ quandl.ApiConfig.api_key = Util.Credential.quandl['apikey']
 
 
 class Intrinio(object):
-    """Fetch data from Intrino"""
+    """Fetch data from Intrinio"""
 
     @staticmethod
     def EquityFin(symbol, year, period, statement):
         response = Intrinio._EquityFin_query(symbol, year, period, statement)
         if not response['data']:
-            raise NoDataError('No data for input: {}, {}, {}, {}'.format(symbol, year, period, statement))
+            raise NoDataError('No data on Intrinio for input: {}, {}, {}, {}'.format(symbol, year, period, statement))
         resdict = {item['tag']: [item['value'] if isinstance(item['value'], float) else None] for item in response['data']}
         resdict['symbol'] = symbol
         resdict['year'] = year
@@ -193,49 +193,7 @@ if __name__ == '__main__':
     sym = 'AAPL'
     periods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4', 'Q1TTM', 'Q2TTM', 'Q3TTM', 'Q2YTD', 'Q3YTD')
     bsperiods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4')
-    # # periods = ('Q2',)
-    # for period in periods:
-    #     df = dbmanager.select(EquityFinIS, {('symbol', '='): sym}, parse_dates=False)
-    #     periodset = {(year, period) for year, period in zip(df['year'], df['period'])}
-    #     for year in range(2009, 2018):
-    #         if (year, period) not in periodset:
-    #             # print('IS', year, period)
-    #             try:
-    #                 resdf = Intrino.EquityFin(sym, year, period, 'income_statement')
-    #                 dbmanager.insert_df(EquityFinIS, resdf)
-    #             except Exception as e:
-    #                 print(e.with_traceback(e.__traceback__))
-    # for period in bsperiods:
-    #     df = dbmanager.select(EquityFinBS, {('symbol', '='): sym}, parse_dates=False)
-    #     periodset = {(year, period) for year, period in zip(df['year'], df['period'])}
-    #     for year in range(2009, 2018):
-    #         if (year, period) not in periodset:
-    #             # print('BS', year, period)
-    #             try:
-    #                 resdf = Intrino.EquityFin(sym, year, period, 'balance_sheet')
-    #                 dbmanager.insert_df(EquityFinBS, resdf)
-    #             except Exception as e:
-    #                 print(e.with_traceback(e.__traceback__))
-    # for period in periods:
-    #     df = dbmanager.select(EquityFinCF, {('symbol', '='): sym}, parse_dates=False)
-    #     periodset = {(year, period) for year, period in zip(df['year'], df['period'])}
-    #     for year in range(2009, 2018):
-    #         if (year, period) not in periodset:
-    #             try:
-    #                 resdf = Intrino.EquityFin(sym, year, period, 'cash_flow_statement')
-    #                 dbmanager.insert_df(EquityFinCF, resdf)
-    #             except Exception as e:
-    #                 print(e.with_traceback(e.__traceback__))
-    # for period in periods:
-    #     df = dbmanager.select(EquityFinFund, {('symbol', '='): sym}, parse_dates=False)
-    #     periodset = {(year, period) for year, period in zip(df['year'], df['period'])}
-    #     for year in range(2009, 2018):
-    #         if (year, period) not in periodset:
-    #             try:
-    #                 resdf = Intrino.EquityFin(sym, year, period, 'calculations')
-    #                 dbmanager.insert_df(EquityFinFund, resdf)
-    #             except Exception as e:
-    #                 print(e.with_traceback(e.__traceback__))
+
 
     # s = ['AAPL','FB']
     # hp = Quandl.EquityHP(s, datetime.date(2017, 1, 1), datetime.date(2017, 1, 10))

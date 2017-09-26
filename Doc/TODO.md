@@ -1,6 +1,2 @@
 
-### What is this..
-{
-      "tag": "evtoinvestedcapital",
-      "value": "nm"
-    },
+- Investigate ta-lib with dataframe / abstract interface
