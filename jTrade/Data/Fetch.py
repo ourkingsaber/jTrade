@@ -40,6 +40,8 @@ class Intrinio(object):
             symbol, statement, year, period))
         req.add_header('Authorization', b'Basic ' + base64.b64encode(Util.Credential.intrino['user'] + b':' + Util.Credential.intrino['pw']))
         result = urllib.request.urlopen(req).read()
+        if isinstance(result, bytes):
+            result = result.decode('utf-8')
         return json.loads(result)
 
     @staticmethod
@@ -141,6 +143,8 @@ class Yahoo(object):
                   "&format=json&diagnostics=true&env=store://datatables.org/alltableswithkeys&callback="
         print(yql_url)
         result = urllib.request.urlopen(yql_url).read()
+        if isinstance(result, bytes):
+            result = result.decode('utf-8')
         return json.loads(result)
 
     @staticmethod
@@ -151,6 +155,8 @@ class Yahoo(object):
         url = 'https://query1.finance.yahoo.com/v7/finance/chart/{}?range={}&interval=1d&indicators=quote&includeTimestamps=true'.format(symbol, length)
 
         result = urllib.request.urlopen(url).read()
+        if isinstance(result, bytes):
+            result = result.decode('utf-8')
         return json.loads(result)
 
 
