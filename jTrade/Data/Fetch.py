@@ -79,6 +79,7 @@ class Quandl(object):
         symbolstr = ','.join(symbols)
         datestr = ','.join(d.isoformat() for d in (start + datetime.timedelta(x) for x in range((end-start).days + 1)))
         df = quandl.get_table('WIKI/PRICES', ticker=symbolstr, date=datestr)
+        df.rename(columns={'ticker': 'symbol', 'ex-dividend': 'ex_dividend'}, inplace=True)
         return df
 
 

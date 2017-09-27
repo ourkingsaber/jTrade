@@ -13,12 +13,12 @@ open(logfile, 'a+').close()
 logger = get_logger('getfin', logfile)
 todayisostr = datetime.date.today().isoformat()
 
-with open('EquityFinFinishedSymbols.json', 'r') as f:
+with open('EquityFinFinishedSymbols.json', 'w+') as f:
     finished_symbols = set(json.load(f))
-with open('EquityFinNoData.json', 'r') as f:
+with open('EquityFinNoData.json', 'w+') as f:
     nodata = json.load(f)
     nodata = set(map(tuple, nodata))
-with open('EquityFinDayLimit.json', 'r') as f:
+with open('EquityFinDayLimit.json', 'w+') as f:
     daylim = json.load(f)
     if next(iter(daylim.keys())) == todayisostr:
         daylim = daylim[todayisostr]
@@ -37,8 +37,9 @@ existing_is = set(map(tuple,dbmanager.execute('select symbol, year, period from 
 existing_cf = set(map(tuple,dbmanager.execute('select symbol, year, period from EquityFinCF')))
 existing_fund = set(map(tuple,dbmanager.execute('select symbol, year, period from EquityFinFund')))
 
-periods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4', 'Q1TTM', 'Q2TTM', 'Q3TTM', 'Q2YTD', 'Q3YTD')
+# periods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4', 'Q1TTM', 'Q2TTM', 'Q3TTM', 'Q2YTD', 'Q3YTD')
 bsperiods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4')
+periods = bsperiods
 count = 0
 for symbol in all_syms:
     if symbol in finished_symbols:
@@ -106,10 +107,10 @@ for symbol in all_syms:
     if count > batchsize or daylim < buffer:
         break
 
-with open('EquityFinFinishedSymbols.json', 'w') as f:
+with open('EquityFinFinishedSymbols.json', 'w+') as f:
     json.dump(list(finished_symbols), f)
-with open('EquityFinNoData.json', 'w') as f:
+with open('EquityFinNoData.json', 'w+') as f:
     json.dump(list(nodata), f)
-with open('EquityFinDayLimit.json', 'w') as f:
+with open('EquityFinDayLimit.json', 'w+') as f:
     daylimdict = {todayisostr: daylim}
     json.dump(daylimdict, f)
