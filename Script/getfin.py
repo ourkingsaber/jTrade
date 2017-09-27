@@ -45,7 +45,7 @@ for symbol in all_syms:
         continue
     print('Start:',symbol)
     err = False
-    for year in range(2009, 2018):
+    for year in range(2008, 2018):
         for period in periods:
             if (symbol, year, period) not in existing_is and (symbol, year, period, 'income_statement') not in nodata:
                 try:
