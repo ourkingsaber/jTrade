@@ -8,7 +8,9 @@ import Util.Convert
 from Util.Logging import get_logger
 from Util.ErrorHandling import *
 
-logger = get_logger('getfin', '../Log/GetFin.log')
+logfile = '../Log/GetFin-{}.log'.format(datetime.date.today().isoformat())
+open(logfile, 'a+').close()
+logger = get_logger('getfin', logfile)
 todayisostr = datetime.date.today().isoformat()
 
 with open('EquityFinFinishedSymbols.json', 'r') as f:
@@ -24,7 +26,7 @@ with open('EquityFinDayLimit.json', 'r') as f:
         daylim = 25000
 buffer = 2000       # buffer for daily limit
 
-batchsize = 2000
+batchsize = 20000
 
 dbmanager = DBManager(Util.Credential.aws_db)
 all_syms = dbmanager.execute('select distinct symbol from EquityHP')
