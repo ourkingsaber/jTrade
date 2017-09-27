@@ -1,6 +1,6 @@
 # Data Source
 
-There are 2 primary sets of data that I need, plus some change.
+Here are the data we need.
 
 ## Price
 
@@ -18,3 +18,5 @@ There are 2 primary sets of data that I need, plus some change.
 
 ## Fundamental
 - Intrino also has this. Probably also included in the limit of number of queries.
+
+## INSIDER TRANSACTIONS & OWNERSHIP

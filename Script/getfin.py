@@ -1,21 +1,30 @@
 import json
-import logging
+import datetime
 from Data.DBManager import DBManager
 from Data.Fetch import Intrinio, Quandl
 from Data.Table import EquityFinIS, EquityFinBS, EquityFinCF, EquityFinFund
 import Util.Credential
+import Util.Convert
 from Util.Logging import get_logger
 from Util.ErrorHandling import *
 
 logger = get_logger('getfin', '../Log/GetFin.log')
+todayisostr = datetime.date.today().isoformat()
 
-batchsize = 1000
-
-with open('../Log/EquityFinFinishedSymbols.json', 'r') as f:
+with open('EquityFinFinishedSymbols.json', 'r') as f:
     finished_symbols = set(json.load(f))
-with open('../Log/EquityFinNoData.json', 'r') as f:
+with open('EquityFinNoData.json', 'r') as f:
     nodata = json.load(f)
     nodata = set(map(tuple, nodata))
+with open('EquityFinDayLimit.json', 'r') as f:
+    daylim = json.load(f)
+    if next(iter(daylim.keys())) == todayisostr:
+        daylim = daylim[todayisostr]
+    else:
+        daylim = 25000
+buffer = 2000       # buffer for daily limit
+
+batchsize = 2000
 
 dbmanager = DBManager(Util.Credential.aws_db)
 all_syms = dbmanager.execute('select distinct symbol from EquityHP')
@@ -32,13 +41,15 @@ count = 0
 for symbol in all_syms:
     if symbol in finished_symbols:
         continue
+    print('Start:',symbol)
     err = False
     for year in range(2009, 2018):
         for period in periods:
             if (symbol, year, period) not in existing_is and (symbol, year, period, 'income_statement') not in nodata:
                 try:
-                    resdf = Intrinio.EquityFin(symbol, year, period, 'income_statement')
                     count += 1
+                    daylim -= 1
+                    resdf = Intrinio.EquityFin(symbol, year, period, 'income_statement')
                     dbmanager.insert_df(EquityFinIS, resdf)
                     logger.info('Inserted {}'.format((symbol, year, period, 'income_statement')))
                 except NoDataError as e:
@@ -49,8 +60,9 @@ for symbol in all_syms:
                     logger.error('{}: {}'.format(type(e).__name__, e))
             if (symbol, year, period) not in existing_cf and (symbol, year, period, 'cash_flow_statement') not in nodata:
                 try:
-                    resdf = Intrinio.EquityFin(symbol, year, period, 'cash_flow_statement')
                     count += 1
+                    daylim -= 1
+                    resdf = Intrinio.EquityFin(symbol, year, period, 'cash_flow_statement')
                     dbmanager.insert_df(EquityFinCF, resdf)
                     logger.info('Inserted {}'.format((symbol, year, period, 'cash_flow_statement')))
                 except NoDataError as e:
@@ -61,8 +73,9 @@ for symbol in all_syms:
                     logger.error('{}: {}'.format(type(e).__name__, e))
             if (symbol, year, period) not in existing_fund and (symbol, year, period, 'calculations') not in nodata:
                 try:
-                    resdf = Intrinio.EquityFin(symbol, year, period, 'calculations')
                     count += 1
+                    daylim -= 1
+                    resdf = Intrinio.EquityFin(symbol, year, period, 'calculations')
                     dbmanager.insert_df(EquityFinFund, resdf)
                     logger.info('Inserted {}'.format((symbol, year, period, 'calculations')))
                 except NoDataError as e:
@@ -74,8 +87,9 @@ for symbol in all_syms:
         for period in bsperiods:
             if (symbol, year, period) not in existing_bs and (symbol, year, period, 'balance_sheet') not in nodata:
                 try:
-                    resdf = Intrinio.EquityFin(symbol, year, period, 'balance_sheet')
                     count += 1
+                    daylim -= 1
+                    resdf = Intrinio.EquityFin(symbol, year, period, 'balance_sheet')
                     dbmanager.insert_df(EquityFinBS, resdf)
                     logger.info('Inserted {}'.format((symbol, year, period, 'balance_sheet')))
                 except NoDataError as e:
@@ -87,10 +101,13 @@ for symbol in all_syms:
     if not err:
         finished_symbols.add(symbol)
         logger.info('Symbol {} financial statements import finished.'.format(symbol))
-    if count > batchsize:
+    if count > batchsize or daylim < buffer:
         break
 
-with open('../Log/EquityFinFinishedSymbols.json', 'w') as f:
+with open('EquityFinFinishedSymbols.json', 'w') as f:
     json.dump(list(finished_symbols), f)
-with open('../Log/EquityFinNoData.json', 'w') as f:
+with open('EquityFinNoData.json', 'w') as f:
     json.dump(list(nodata), f)
+with open('EquityFinDayLimit.json', 'w') as f:
+    daylimdict = {todayisostr: daylim}
+    json.dump(daylimdict, f)

@@ -4,6 +4,9 @@ import pandas as pd
 from collections import OrderedDict
 
 
+def isotodate(isostr):
+    return datetime.datetime.strptime(isostr, '%Y-%m-%d').date()
+
 def date_to_np(dt_date : datetime.date):
     return np.datetime64(dt_date)
 
