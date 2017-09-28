@@ -23,10 +23,10 @@ with open('EquityFinDayLimit.json', 'w+') as f:
     if next(iter(daylim.keys())) == todayisostr:
         daylim = daylim[todayisostr]
     else:
-        daylim = 25000
+        daylim = 50000
 buffer = 2000       # buffer for daily limit
 
-batchsize = 20000
+batchsize = 1000
 
 dbmanager = DBManager(Util.Credential.aws_db)
 all_syms = dbmanager.execute('select distinct symbol from EquityHP')
