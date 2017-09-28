@@ -13,12 +13,12 @@ open(logfile, 'a+').close()
 logger = get_logger('getfin', logfile)
 todayisostr = datetime.date.today().isoformat()
 
-with open('EquityFinFinishedSymbols.json', 'w+') as f:
+with open('EquityFinFinishedSymbols.json', 'r') as f:
     finished_symbols = set(json.load(f))
-with open('EquityFinNoData.json', 'w+') as f:
+with open('EquityFinNoData.json', 'r') as f:
     nodata = json.load(f)
     nodata = set(map(tuple, nodata))
-with open('EquityFinDayLimit.json', 'w+') as f:
+with open('EquityFinDayLimit.json', 'r') as f:
     daylim = json.load(f)
     if next(iter(daylim.keys())) == todayisostr:
         daylim = daylim[todayisostr]
@@ -26,7 +26,7 @@ with open('EquityFinDayLimit.json', 'w+') as f:
         daylim = 50000
 buffer = 2000       # buffer for daily limit
 
-batchsize = 1000
+batchsize = 1500
 
 dbmanager = DBManager(Util.Credential.aws_db)
 all_syms = dbmanager.execute('select distinct symbol from EquityHP')
@@ -44,6 +44,8 @@ count = 0
 for symbol in all_syms:
     if symbol in finished_symbols:
         continue
+    if dailim < buffer:
+        break
     print('Start:',symbol)
     err = False
     for year in range(2008, 2018):
