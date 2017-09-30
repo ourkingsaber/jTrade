@@ -44,7 +44,7 @@ count = 0
 for symbol in all_syms:
     if symbol in finished_symbols:
         continue
-    if dailim < buffer:
+    if daylim < buffer:
         break
     print('Start:',symbol)
     err = False

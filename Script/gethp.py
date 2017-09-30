@@ -19,10 +19,10 @@ all_syms = dbmanager.execute('select distinct symbol from EquityHP')
 all_syms = [x[0] for x in all_syms]
 
 # all_syms = ['AAPL', 'FB']
-firstdate = datetime.date(2017,9,23)
+# firstdate = datetime.date(2017,9,23)
 lastdate = datetime.date.today()
 batchsize = 5
-for i in range(len(all_syms) // batchsize + 2):     # +1 to ge number of batches, +2 for range
+for i in range(len(all_syms) // batchsize + 1):     # +1 to ge number of batches, +2 for range
     batch = all_syms[i*batchsize: (i+1)*batchsize]
     try:
         newhpdf = Quandl.EquityHP(batch, firstdate, lastdate)
