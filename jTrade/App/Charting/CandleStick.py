@@ -3,8 +3,8 @@ import datetime
 import plotly as py
 import plotly.graph_objs as go
 
-from Data.DBManager import dbmanager
-from Data.Table import EquityHP
+from jTrade.Data.DBManager import dbmanager
+from jTrade.Data.Table import EquityHP
 
 df = dbmanager.select(EquityHP, {'&': {('symbol','='): 'AAPL', ('date', '>'): datetime.date(2017,1,1)}})
 print(df)

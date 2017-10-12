@@ -1,53 +1,4 @@
-CREATE TABLE `jTrade_dev`.`EquityInfo` (
-  `symbol` VARCHAR(45) NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `sector` VARCHAR(45) NULL,
-  `industry` VARCHAR(45) NULL,
-  `summary` TEXT NULL,
-  PRIMARY KEY (`symbol`));
-
-
-CREATE TABLE `jTrade_dev`.`EquityQuote` (
-  `symbol` VARCHAR(45) NOT NULL,
-  `time` DATETIME NOT NULL,
-  `price` FLOAT NULL,
-  `change` FLOAT NULL,
-  `pct_change` FLOAT NULL,
-  `volume` FLOAT NULL,
-  `avg_volume` FLOAT NULL,
-  `name` VARCHAR(45) NULL,
-  `exchange` VARCHAR(45) NULL,
-  `market_cap` FLOAT NULL,
-  `day_high` FLOAT NULL,
-  `day_low` FLOAT NULL,
-  `year_high` FLOAT NULL,
-  `year_low` FLOAT NULL,
-  PRIMARY KEY (`symbol`, `time`));
-
-
-CREATE TABLE `jTrade_dev`.`Position` (
-  `symbol` VARCHAR(45) NOT NULL,
-  `date` DATE NOT NULL,
-  `share` FLOAT NOT NULL,
-  `price` FLOAT NOT NULL,
-  `value` FLOAT NULL,
-  `cost` FLOAT NULL,
-  `pct_ret` FLOAT NULL,
-  `abs_ret` FLOAT NULL,
-  PRIMARY KEY (`symbol`, `date`));
-
-
-CREATE TABLE `jTrade_dev`.`Order` (
-  `symbol` VARCHAR(45) NOT NULL,
-  `date` DATE NOT NULL,
-  `share` FLOAT NULL,
-  `price` FLOAT NULL,
-  `fee` FLOAT NULL,
-  `total` FLOAT NULL,
-  PRIMARY KEY (`symbol`, `date`));
-
-
-CREATE TABLE `jTrade_dev`.`EquityHP` (
+CREATE TABLE `jTrade`.`EquityHP` (
   `symbol` VARCHAR(45) NOT NULL,
   `date` DATE NOT NULL,
   `open` FLOAT NULL,
@@ -62,18 +13,11 @@ CREATE TABLE `jTrade_dev`.`EquityHP` (
   `adj_low` FLOAT NULL,
   `adj_close` FLOAT NULL,
   `adj_volume` FLOAT NULL,
-  PRIMARY KEY (`symbol`, `date`));
+  PRIMARY KEY (`symbol`, `date`),
+  INDEX `timekey` (`date`));
 
 
-CREATE TABLE `jTrade_dev`.`EquityInd` (
-  `symbol` VARCHAR(45) NOT NULL,
-  `date` DATE NOT NULL,
-  `indicator` VARCHAR(45) NOT NULL,
-  `val` FLOAT NULL,
-  PRIMARY KEY (`symbol`, `date`, `indicator`));
-
-
-CREATE TABLE `jTrade_dev`.`EquityFinIS` (
+CREATE TABLE `jTrade`.`EquityFinIS` (
   `symbol` VARCHAR(45) NOT NULL,
   `year` INT NOT NULL,
   `period` VARCHAR(45) NOT NULL,
@@ -150,10 +94,13 @@ CREATE TABLE `jTrade_dev`.`EquityFinIS` (
   `weightedavebasicdilutedsharesos` FLOAT NULL,
   `basicdilutedeps` FLOAT NULL,
   `cashdividendspershare` FLOAT NULL,
-  PRIMARY KEY (`symbol`, `year`, `period`));
+  `scfna` FLOAT NULL,
+  PRIMARY KEY (`symbol`, `year`, `period`),
+  INDEX `yearkey` (`year`),
+  INDEX `periodkey` (`period`));
 
 
-CREATE TABLE `jTrade_dev`.`EquityFinBS` (
+CREATE TABLE `jTrade`.`EquityFinBS` (
   `symbol` VARCHAR(45) NOT NULL,
   `year` INT NOT NULL,
   `period` VARCHAR(45) NOT NULL,
@@ -245,10 +192,13 @@ CREATE TABLE `jTrade_dev`.`EquityFinBS` (
   `noncontrollinginterests` FLOAT NULL,
   `totalequityandnoncontrollinginterests` FLOAT NULL,
   `totalliabilitiesandequity` FLOAT NULL,
-  PRIMARY KEY (`symbol`, `year`, `period`));
+  `isna` FLOAT NULL,
+  PRIMARY KEY (`symbol`, `year`, `period`),
+  INDEX `yearkey` (`year`),
+  INDEX `periodkey` (`period`));
 
 
-CREATE TABLE `jTrade_dev`.`EquityFinCF` (
+CREATE TABLE `jTrade`.`EquityFinCF` (
   `symbol` VARCHAR(45) NOT NULL,
   `year` INT NOT NULL,
   `period` VARCHAR(45) NOT NULL,
@@ -293,10 +243,12 @@ CREATE TABLE `jTrade_dev`.`EquityFinCF` (
   `cashinterestpaid` FLOAT NULL,
   `cashinterestreceived` FLOAT NULL,
   `cashincometaxespaid` FLOAT NULL,
-  PRIMARY KEY (`symbol`, `year`, `period`));
+  PRIMARY KEY (`symbol`, `year`, `period`),
+  INDEX `yearkey` (`year`),
+  INDEX `periodkey` (`period`));
 
 
-CREATE TABLE `jTrade_dev`.`EquityFinFund` (
+CREATE TABLE `jTrade`.`EquityFinFund` (
   `symbol` VARCHAR(45) NOT NULL,
   `year` INT NOT NULL,
   `period` VARCHAR(45) NOT NULL,
@@ -421,4 +373,67 @@ CREATE TABLE `jTrade_dev`.`EquityFinFund` (
   `tangbookvaluepershare` FLOAT NULL,
   `taxburdenpct` FLOAT NULL,
   `totalcapital` FLOAT NULL,
-  PRIMARY KEY (`symbol`, `year`, `period`));
+  PRIMARY KEY (`symbol`, `year`, `period`),
+  INDEX `yearkey` (`year`),
+  INDEX `periodkey` (`period`));
+
+
+CREATE TABLE `jTrade`.`EquityInfo` (
+  `symbol` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `sector` VARCHAR(45) NULL,
+  `industry` VARCHAR(45) NULL,
+  `summary` TEXT NULL,
+  PRIMARY KEY (`symbol`));
+
+
+CREATE TABLE `jTrade`.`EquityQuote` (
+  `symbol` VARCHAR(45) NOT NULL,
+  `time` DATETIME NOT NULL,
+  `price` FLOAT NULL,
+  `change` FLOAT NULL,
+  `pct_change` FLOAT NULL,
+  `volume` FLOAT NULL,
+  `avg_volume` FLOAT NULL,
+  `name` VARCHAR(45) NULL,
+  `exchange` VARCHAR(45) NULL,
+  `market_cap` FLOAT NULL,
+  `day_high` FLOAT NULL,
+  `day_low` FLOAT NULL,
+  `year_high` FLOAT NULL,
+  `year_low` FLOAT NULL,
+  PRIMARY KEY (`symbol`, `time`),
+  INDEX `symkey` (`symbol`),
+  INDEX `timekey` (`time`));
+
+
+CREATE TABLE `jTrade`.`Position` (
+  `symbol` VARCHAR(45) NOT NULL,
+  `date` DATE NOT NULL,
+  `share` FLOAT NOT NULL,
+  `price` FLOAT NOT NULL,
+  `value` FLOAT NULL,
+  `cost` FLOAT NULL,
+  `pct_ret` FLOAT NULL,
+  `abs_ret` FLOAT NULL,
+  PRIMARY KEY (`symbol`, `date`));
+
+
+CREATE TABLE `jTrade`.`Order` (
+  `symbol` VARCHAR(45) NOT NULL,
+  `date` DATE NOT NULL,
+  `share` FLOAT NULL,
+  `price` FLOAT NULL,
+  `fee` FLOAT NULL,
+  `total` FLOAT NULL,
+  PRIMARY KEY (`symbol`, `date`));
+
+
+CREATE TABLE `jTrade`.`EquityInd` (
+  `symbol` VARCHAR(45) NOT NULL,
+  `date` DATE NOT NULL,
+  `indicator` VARCHAR(45) NOT NULL,
+  `val` FLOAT NULL,
+  PRIMARY KEY (`symbol`, `date`, `indicator`),
+  INDEX `symkey` (`symbol`),
+  INDEX `datekey` (`date`));

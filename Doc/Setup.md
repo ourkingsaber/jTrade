@@ -15,7 +15,7 @@ Required Python packages:
 - rpy2 (maybe)
 - quantlib (maybe, requires underlying C++ package)
 
-Make sure `jTrade/jTrade` is added to python package search path. That is, `Data`, `Core` and other modules can be 
+Make sure `jTrade` is added to python package search path. That is, `jTrade` as a module can be
 directly imported. This is important!
 
 ### Developer

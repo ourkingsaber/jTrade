@@ -7,11 +7,12 @@ import datetime
 import pandas as pd
 # from rpy2.robjects import packages as rpackages, pandas2ri, r
 
-import Util.Credential
-import Data.Table
-from Util.ErrorHandling import *
+import jTrade.Util.Credential as Credential
+import jTrade.Data.Table as Table
+from jTrade.Util.ErrorHandling import *
+from jTrade.Data.DBManager import dbmanager
 
-quandl.ApiConfig.api_key = Util.Credential.quandl['apikey']
+quandl.ApiConfig.api_key = Credential.quandl['apikey']
 
 
 class Intrinio(object):
@@ -38,7 +39,7 @@ class Intrinio(object):
         req = urllib.request.Request(
             'https://api.intrinio.com/financials/standardized?identifier={}&statement={}&fiscal_year={}&fiscal_period={}'.format(
             symbol, statement, year, period))
-        req.add_header('Authorization', b'Basic ' + base64.b64encode(Util.Credential.intrino['user'] + b':' + Util.Credential.intrino['pw']))
+        req.add_header('Authorization', b'Basic ' + base64.b64encode(Credential.intrino['user'] + b':' + Credential.intrino['pw']))
         result = urllib.request.urlopen(req).read()
         if isinstance(result, bytes):
             result = result.decode('utf-8')
@@ -47,13 +48,13 @@ class Intrinio(object):
     @staticmethod
     def stmt_to_table(statement):
         if statement == 'income_statement':
-            return Data.Table.EquityFinIS
+            return Table.EquityFinIS
         elif statement == 'balance_sheet':
-            return Data.Table.EquityFinBS
+            return Table.EquityFinBS
         elif statement == 'cash_flow_statement':
-            return Data.Table.EquityFinCF
+            return Table.EquityFinCF
         elif statement == 'calculations':
-            return Data.Table.EquityFinFund
+            return Table.EquityFinFund
         else:
             raise ValueError('{} is not a valid statement'.format(statement))
 
@@ -141,7 +142,7 @@ class Yahoo(object):
         ticker_url = "','".join(symbols)
         yql_query = "select * from yahoo.finance.quotes where symbol in ('{}')".format(ticker_url)
         yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + \
-                  "&format=json&diagnostics=true&env=store://datatables.org/alltableswithkeys&callback="
+                  "&format=json&diagnostics=true&env=store://Data.Tables.org/alltableswithkeys&callback="
         print(yql_url)
         result = urllib.request.urlopen(yql_url).read()
         if isinstance(result, bytes):
@@ -187,8 +188,6 @@ class Yahoo(object):
 
 
 if __name__ == '__main__':
-    from Data.DBManager import dbmanager
-
     # print(Yahoo._EquityQuote_query(['AAPL', 'MSFT']))
     # print(Yahoo._EquityHP_query('AAPL', '1y'))
     # print(Yahoo.EquityHP('AAPL', '1y'))
@@ -198,9 +197,7 @@ if __name__ == '__main__':
 
 
     sym = 'AAPL'
-    periods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4', 'Q1TTM', 'Q2TTM', 'Q3TTM', 'Q2YTD', 'Q3YTD')
-    bsperiods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4')
-
+    periods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4')
 
     # s = ['AAPL','FB']
     # hp = Quandl.EquityHP(s, datetime.date(2017, 1, 1), datetime.date(2017, 1, 10))

@@ -1,8 +1,7 @@
 import pandas as pd
 
-import Data.Table
-import Data.Table
-from Data.DBManager import dbmanager
+import jTrade.Data.Table as Table
+from jTrade.Data.DBManager import dbmanager
 
 
 class Equity(object):
@@ -32,7 +31,7 @@ class Equity(object):
             fil = {'&': {('symbol', '='): self.symbol,
                          ('date', '>='): start,
                          ('date', '<='): end}}
-        hp = dbmanager.select(Data.Table.EquityHP, fil)
+        hp = dbmanager.select(Table.EquityHP, fil)
         self.hp = hp
 
     def get_financial(self):

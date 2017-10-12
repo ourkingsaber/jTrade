@@ -3,8 +3,8 @@ from collections import OrderedDict
 
 import pandas as pd
 
-import App.Trading.FeeModel
-import Core.Instrument.Equity
+import jTrade.App.Trading.FeeModel as FeeModel
+import jTrade.Core.Instrument.Equity as Equity
 
 
 class Order(object):
@@ -35,8 +35,8 @@ class Order(object):
         pass
 
 if __name__ == '__main__':
-    test = Core.Instrument.Equity.Equity('AAPL')
-    fm = App.Trading.FeeModel.FixedFlat(100)
+    test = Equity.Equity('AAPL')
+    fm = FeeModel.FixedFlat(100)
     a = Order(test, datetime.date.today(), 100, 50, fm)
     print(a.total)
     print(a.to_df())

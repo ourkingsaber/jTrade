@@ -5,10 +5,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import and_, or_, select
 
-import Data.Table
-import Util.Const
-import Util.Convert
-import Util.Credential
+import jTrade.Data.Table as Table
+import jTrade.Util.Const as Const
+import jTrade.Util.Convert as Convert
+import jTrade.Util.Credential as Credential
 
 
 class DBManager(object):
@@ -17,12 +17,12 @@ class DBManager(object):
     _logic_op = {'&', '|'}
     _filter_op = {'=', '!=', '>', '<', '>=', '<='}
 
-    def __init__(self, info : dict=Util.Credential.default_db):
+    def __init__(self, info : dict=Credential.default_db):
         self._engine = create_engine('{}://{}:{}@{}:{}/{}'.format(info['type'], info['user'], info['pw'],
                                                                   info['host'], info['port'], info['db']))
         self._DBSession = sessionmaker(bind=self._engine)
 
-    def select(self, table : Data.Table.Table, filter_dict, index_col='date', parse_dates=['date']):
+    def select(self, table : Table.Table, filter_dict, index_col='date', parse_dates=['date']):
         sql_filter = DBManager.dict_to_sql_filter(table, filter_dict)
         s = select([table]).where(sql_filter)
         if parse_dates:
@@ -31,7 +31,7 @@ class DBManager(object):
             df = pd.read_sql(s, self._engine)
         return df
 
-    def insert(self, table : Data.Table.Table, values_list):
+    def insert(self, table : Table.Table, values_list):
         conn = self._engine.connect()
         if not isinstance(values_list, list):
             values_list = [values_list]
@@ -40,7 +40,7 @@ class DBManager(object):
             conn.execute(ins)
         conn.close()
 
-    def insert_df(self, table : Data.Table.Table, dataframe : pd.DataFrame, if_exists='append', index=False):
+    def insert_df(self, table : Table.Table, dataframe : pd.DataFrame, if_exists='append', index=False):
         """Inserts a dataframe into database.
 
         :param table:
@@ -63,7 +63,7 @@ class DBManager(object):
         return conn.execute(query).fetchall()
 
     @staticmethod
-    def dict_to_sql_filter(table : Data.Table.Table, filter_dict : dict):
+    def dict_to_sql_filter(table : Table.Table, filter_dict : dict):
         """
         :param table: python class.
         :param filter_dict: {'&': {('symbol','='): 'AAPL', ('date', '>'): datetime.date(2017,1,1)}}
@@ -97,20 +97,20 @@ class DBManager(object):
 
 # common DBManager for application
 # todo: check if this is the general approach
-dbmanager = DBManager(Util.Credential.default_db)
+dbmanager = DBManager(Credential.default_db)
 
 
 if __name__ == '__main__':
     filtr = {'&': {('symbol', '='): 'AAPL',
                    ('date', '='): datetime.date(2017,8,21)}}
-    test = dbmanager.select(Data.Table.EquityHP, filtr)
+    test = dbmanager.select(Table.EquityHP, filtr)
     print(test)
     #
     filtr = {('date', '='): datetime.date(2017, 8, 21)}
-    tests = dbmanager.select(Data.Table.EquityHP, filtr)
+    tests = dbmanager.select(Table.EquityHP, filtr)
     print(tests)
 
-    # res = dbmanager.select(Data.DB.Table.EquityHP, {('symbol','='):'AAPL'})
+    # res = dbmanager.select(jTrade.DataDB.Table.EquityHP, {('symbol','='):'AAPL'})
     # for row in res:
     #     print(row)
 
@@ -124,4 +124,4 @@ if __name__ == '__main__':
         'pct_ret': [0,0],
         'abs_ret': [0,0]
     })
-    dbmanager.insert_df(Data.Table.Position, df, 'append', False)
+    dbmanager.insert_df(Table.Position, df, 'append', False)

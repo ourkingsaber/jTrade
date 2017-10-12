@@ -1,18 +1,18 @@
 import datetime
 from collections import OrderedDict
 
-import App.Trading.FeeModel
-import App.Trading.Order
-import Core.Instrument.Equity
-import Data.Table
-import Util.Convert
-from Data.DBManager import dbmanager
+import jTrade.App.Trading.FeeModel as FeeModel
+import jTrade.App.Trading.Order as Order
+import jTrade.Core.Instrument.Equity as Equity
+import jTrade.Data.Table as Table
+import jTrade.Util.Convert as Convert
+from jTrade.Data.DBManager import dbmanager
 
 
 class Position(object):
     """Position class."""
 
-    def __init__(self, equity : Core.Instrument.Equity):
+    def __init__(self, equity : Equity):
         self.equity = equity
         self.share = 0
         self.cost = 0
@@ -21,7 +21,7 @@ class Position(object):
         self.bal_history = OrderedDict()
         self.order_history = OrderedDict()
 
-    def place_order(self, order : App.Trading.Order.Order):
+    def place_order(self, order : Order.Order):
         assert self.equity is order.equity
         if self.share * order.share >= 0:       # add position
             self.cost += order.total
@@ -65,8 +65,8 @@ class Position(object):
         else:
             filtr = {'&': {('symbol', '='): self.equity.symbol,
                            ('date', '>='): start}}
-        hist_df = dbmanager.select(Data.Table.Position, filtr)
-        self.bal_history = Util.Convert.dataframe_to_ordereddict(hist_df)
+        hist_df = dbmanager.select(Table.Position, filtr)
+        self.bal_history = Convert.dataframe_to_ordereddict(hist_df)
 
     def get_order_history(self, start=None):
         if not start:
@@ -74,35 +74,35 @@ class Position(object):
         else:
             filtr = {'&': {('symbol', '='): self.equity.symbol,
                            ('date', '>='): start}}
-        hist_df = dbmanager.select(Data.Table.Order, filtr)
-        self.order_history = Util.Convert.dataframe_to_ordereddict(hist_df)
+        hist_df = dbmanager.select(Table.Order, filtr)
+        self.order_history = Convert.dataframe_to_ordereddict(hist_df)
 
 
 if __name__ == '__main__':
-    e = Core.Instrument.Equity.Equity('AAPL')
+    e = Equity.Equity('AAPL')
     p = Position(e)
-    fm = App.Trading.FeeModel.FixedFlat(10)
-    o = App.Trading.Order.Order(e, datetime.date(2017, 1, 1), 100, 100, fm)
+    fm = FeeModel.FixedFlat(10)
+    o = Order.Order(e, datetime.date(2017, 1, 1), 100, 100, fm)
     p.place_order(o)
     e.price = 100
     p.save_balance()
-    print(Util.Convert.ordereddict_to_dataframe(p.order_history))
-    print(Util.Convert.ordereddict_to_dataframe(p.bal_history))
-    o = App.Trading.Order.Order(e, datetime.date(2017, 1, 2), -50, 100, fm)
+    print(Convert.ordereddict_to_dataframe(p.order_history))
+    print(Convert.ordereddict_to_dataframe(p.bal_history))
+    o = Order.Order(e, datetime.date(2017, 1, 2), -50, 100, fm)
     p.place_order(o)
     e.price = 112
     p.save_balance()
-    print(Util.Convert.ordereddict_to_dataframe(p.order_history))
-    print(Util.Convert.ordereddict_to_dataframe(p.bal_history))
-    o = App.Trading.Order.Order(e, datetime.date(2017, 1, 3), 50, 120, fm)
+    print(Convert.ordereddict_to_dataframe(p.order_history))
+    print(Convert.ordereddict_to_dataframe(p.bal_history))
+    o = Order.Order(e, datetime.date(2017, 1, 3), 50, 120, fm)
     p.place_order(o)
     e.price = 122
     p.save_balance()
-    print(Util.Convert.ordereddict_to_dataframe(p.order_history))
-    print(Util.Convert.ordereddict_to_dataframe(p.bal_history))
-    o = App.Trading.Order.Order(e, datetime.date(2017, 1, 4), -100, 120, fm)
+    print(Convert.ordereddict_to_dataframe(p.order_history))
+    print(Convert.ordereddict_to_dataframe(p.bal_history))
+    o = Order.Order(e, datetime.date(2017, 1, 4), -100, 120, fm)
     p.place_order(o)
     e.price = 112
     p.save_balance()
-    print(Util.Convert.ordereddict_to_dataframe(p.order_history))
-    print(Util.Convert.ordereddict_to_dataframe(p.bal_history))
+    print(Convert.ordereddict_to_dataframe(p.order_history))
+    print(Convert.ordereddict_to_dataframe(p.bal_history))

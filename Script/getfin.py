@@ -1,12 +1,12 @@
 import json
 import datetime
-from Data.DBManager import DBManager
-from Data.Fetch import Intrinio, Quandl
-from Data.Table import EquityFinIS, EquityFinBS, EquityFinCF, EquityFinFund
-import Util.Credential
-import Util.Convert
-from Util.Logging import get_logger
-from Util.ErrorHandling import *
+from jTrade.Data.DBManager import DBManager
+from jTrade.Data.Fetch import Intrinio
+from jTrade.Data.Table import EquityFinIS, EquityFinBS, EquityFinCF, EquityFinFund
+import jTrade.Util.Credential as Credential
+import jTrade.Util.Convert as Convert
+from jTrade.Util.Logging import get_logger
+from jTrade.Util.ErrorHandling import *
 
 logfile = '../Log/GetFin-{}.log'.format(datetime.date.today().isoformat())
 open(logfile, 'a+').close()
@@ -24,11 +24,11 @@ with open('EquityFinDayLimit.json', 'r') as f:
         daylim = daylim[todayisostr]
     else:
         daylim = 50000
-buffer = 2000       # buffer for daily limit
+buffer = 10000       # buffer for daily limit
 
 batchsize = 1500
 
-dbmanager = DBManager(Util.Credential.aws_db)
+dbmanager = DBManager(Credential.default_db)
 all_syms = dbmanager.execute('select distinct symbol from EquityHP')
 all_syms = [x[0] for x in all_syms]
 
@@ -37,15 +37,13 @@ existing_is = set(map(tuple,dbmanager.execute('select symbol, year, period from 
 existing_cf = set(map(tuple,dbmanager.execute('select symbol, year, period from EquityFinCF')))
 existing_fund = set(map(tuple,dbmanager.execute('select symbol, year, period from EquityFinFund')))
 
-# periods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4', 'Q1TTM', 'Q2TTM', 'Q3TTM', 'Q2YTD', 'Q3YTD')
-bsperiods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4')
-periods = bsperiods
+periods = ('FY', 'Q1', 'Q2', 'Q3', 'Q4')
 count = 0
 for symbol in all_syms:
-    if symbol in finished_symbols:
-        continue
     if daylim < buffer:
         break
+    if symbol in finished_symbols:
+        continue
     print('Start:',symbol)
     err = False
     for year in range(2008, 2018):
@@ -89,7 +87,7 @@ for symbol in all_syms:
                 except Exception as e:
                     err = True
                     logger.error('{}: {}'.format(type(e).__name__, e))
-        for period in bsperiods:
+        for period in periods:
             if (symbol, year, period) not in existing_bs and (symbol, year, period, 'balance_sheet') not in nodata:
                 try:
                     count += 1

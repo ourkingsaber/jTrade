@@ -1,7 +1,7 @@
 import talib
 import numpy as np
 
-import Core.Instrument.Equity
+import jTrade.Core.Instrument.Equity as Equity
 
 
 # ========== TECH OVERLAP INDICATORS **START** ==========
@@ -1489,10 +1489,9 @@ def CDLXSIDEGAP3METHODS(equity, start=None, end=None):
 
 if __name__ == '__main__':
     import datetime
-    import Core.Instrument.Equity
     today = datetime.date(2017,8,30)
 
-    eq = Core.Instrument.Equity.Equity('AAPL')
+    eq = Equity.Equity('AAPL')
     eq.get_hp()
     print((CDLSPINNINGTOP(eq)))
     print('ok')

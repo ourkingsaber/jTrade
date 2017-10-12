@@ -16,7 +16,10 @@ Here are the data we need.
 - Only web api.
 - http://docs.intrinio.com/#standardized-financials
 
-## Fundamental
-- Intrino also has this. Probably also included in the limit of number of queries.
-
-## INSIDER TRANSACTIONS & OWNERSHIP
+Update - got Developer plan for 6 months, great! It includes:
+- US Public Company Security Master Data Feed
+- US Public Company Financial Data Feed
+- Sector & Industry Data Feed
+- IEX Real-Time Pricing Feed Web Socket with Connection Limit
+- US Insider Transactions & Ownership
+- US Institutional Holdings
