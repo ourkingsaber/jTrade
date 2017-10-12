@@ -1,13 +1,3 @@
-# Project Specific
-/Log/*
-/Data/*
-/Doc/ProgressTracker.xlsx
-/jTrade/Util/Credential.py
-/jTrade/Util/jTradeEC2.pem
-/Script/EC2.sh
-/Script/rtosql.r
-
-
 # Mac
 *~
 .DS_Store
@@ -141,4 +131,13 @@ ENV/
 .mypy_cache/
 
 
-
+# Project Specific
+/Log/*
+/Data/*
+/jTrade/Util/Credential.py
+/jTrade/Util/jTradeEC2.pem
+/Script/EC2.sh
+/Script/rtosql.r
+/Script/EquityFinFinishedSymbols.json
+/Script/EquityFinDayLimit.json
+/Script/EquityFinNoData.json
