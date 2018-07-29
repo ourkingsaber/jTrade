@@ -1,5 +1,5 @@
-from jTrade.core.screening import Screener
-from jTrade.core.signal.tech import *
+from jtrade.core.screening import Screener
+from jtrade.core.signal.tech import *
 
 class MACD(Screener):
     def screen(self, equity):

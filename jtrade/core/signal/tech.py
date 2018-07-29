@@ -1,7 +1,7 @@
 import talib
 import numpy as np
 
-import jTrade.core.instrument.equity as Equity
+import jtrade.core.instrument.equity as Equity
 
 
 # ========== TECH OVERLAP INDICATORS **START** ==========

@@ -1,4 +1,4 @@
-import jTrade.core.trading.fee_model as FeeModel
+import jtrade.core.trading.fee_model as FeeModel
 
 
 class Portfolio(object):
@@ -19,7 +19,7 @@ class Portfolio(object):
 
 if __name__ == '__main__':
     import datetime
-    import jTrade.core.instrument.equity as Equity
+    import jtrade.core.instrument.equity as Equity
     today = datetime.date(2017,8,30)
     port = Portfolio()
 

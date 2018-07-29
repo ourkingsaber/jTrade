@@ -1,11 +1,11 @@
 import json
 import datetime
-from jTrade.data.db_manager import DBManager
-from jTrade.data.fetch import Quandl
-from jTrade.data.table import EquityHP
-import jTrade.Util.Credential as Credential
-from jTrade.Util.log import get_logger
-from jTrade.Util.exception import *
+from jtrade.data.db_manager import DBManager
+from jtrade.data.fetch import Quandl
+from jtrade.data.table import EquityHP
+import jtrade.util.Credential as Credential
+from jtrade.util.log import get_logger
+from jtrade.util.exception import *
 
 logfile = '../Log/GetHP-{}.log'.format(datetime.date.today().isoformat())
 open(logfile, 'a+').close()
@@ -13,7 +13,7 @@ logger = get_logger('getfin', logfile)
 
 
 dbmanager = DBManager(Credential.default_db)
-firstdate = dbmanager.execute('SELECT distinct date FROM jTrade.EquityHP a order by date desc limit 1')[0][0] + datetime.timedelta(1)
+firstdate = dbmanager.execute('SELECT distinct date FROM jtrade.EquityHP a order by date desc limit 1')[0][0] + datetime.timedelta(1)
 
 all_syms = dbmanager.execute('select distinct symbol from EquityHP')
 all_syms = [x[0] for x in all_syms]

@@ -5,9 +5,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import and_, or_, select
 
-import jTrade.data.table as Table
-import jTrade.Util.convert as Convert
-import jTrade.Util.Credential as Credential
+import jtrade.data.table as Table
+import jtrade.util.convert as Convert
+import jtrade.util.Credential as Credential
 
 
 class DBManager(object):
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     tests = dbmanager.select(Table.EquityHP, filtr)
     print(tests)
 
-    # res = dbmanager.select(jTrade.DataDB.Table.EquityHP, {('symbol','='):'AAPL'})
+    # res = dbmanager.select(jtrade.DataDB.Table.EquityHP, {('symbol','='):'AAPL'})
     # for row in res:
     #     print(row)
 

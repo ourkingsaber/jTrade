@@ -1,11 +1,11 @@
 import datetime
 from collections import OrderedDict
 
-import jTrade.core.trading.fee_model as FeeModel
-import jTrade.core.instrument.equity as Equity
-import jTrade.data.table as Table
-import jTrade.Util.convert as Convert
-from jTrade.data.db_manager import dbmanager
+import jtrade.core.trading.fee_model as FeeModel
+import jtrade.core.instrument.equity as Equity
+import jtrade.data.table as Table
+import jtrade.util.convert as Convert
+from jtrade.data.db_manager import dbmanager
 
 
 class Position(object):

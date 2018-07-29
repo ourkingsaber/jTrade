@@ -7,10 +7,10 @@ import datetime
 import pandas as pd
 # from rpy2.robjects import packages as rpackages, pandas2ri, r
 
-import jTrade.Util.Credential as Credential
-import jTrade.data.table as Table
-from jTrade.Util.exception import *
-from jTrade.data.db_manager import dbmanager
+import jtrade.util.Credential as Credential
+import jtrade.data.table as Table
+from jtrade.util.exception import *
+from jtrade.data.db_manager import dbmanager
 
 quandl.ApiConfig.api_key = Credential.quandl['apikey']
 
