@@ -8,9 +8,9 @@ import pandas as pd
 # from rpy2.robjects import packages as rpackages, pandas2ri, r
 
 import jTrade.Util.Credential as Credential
-import jTrade.Data.Table as Table
-from jTrade.Util.ErrorHandling import *
-from jTrade.Data.DBManager import dbmanager
+import jTrade.data.table as Table
+from jTrade.Util.exception import *
+from jTrade.data.db_manager import dbmanager
 
 quandl.ApiConfig.api_key = Credential.quandl['apikey']
 
@@ -142,7 +142,7 @@ class Yahoo(object):
         ticker_url = "','".join(symbols)
         yql_query = "select * from yahoo.finance.quotes where symbol in ('{}')".format(ticker_url)
         yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + \
-                  "&format=json&diagnostics=true&env=store://Data.Tables.org/alltableswithkeys&callback="
+                  "&format=json&diagnostics=true&env=store://data.Tables.org/alltableswithkeys&callback="
         print(yql_url)
         result = urllib.request.urlopen(yql_url).read()
         if isinstance(result, bytes):

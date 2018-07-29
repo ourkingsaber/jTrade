@@ -3,8 +3,8 @@ from collections import OrderedDict
 
 import pandas as pd
 
-import jTrade.App.Trading.FeeModel as FeeModel
-import jTrade.Core.Instrument.Equity as Equity
+import jTrade.core.trading.fee_model as FeeModel
+import jTrade.core.instrument.equity as Equity
 
 
 class Order(object):

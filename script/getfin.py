@@ -1,12 +1,12 @@
 import json
 import datetime
-from jTrade.Data.DBManager import DBManager
-from jTrade.Data.Fetch import Intrinio
-from jTrade.Data.Table import EquityFinIS, EquityFinBS, EquityFinCF, EquityFinFund
+from jTrade.data.db_manager import DBManager
+from jTrade.data.fetch import Intrinio
+from jTrade.data.table import EquityFinIS, EquityFinBS, EquityFinCF, EquityFinFund
 import jTrade.Util.Credential as Credential
-import jTrade.Util.Convert as Convert
-from jTrade.Util.Logging import get_logger
-from jTrade.Util.ErrorHandling import *
+import jTrade.Util.convert as Convert
+from jTrade.Util.log import get_logger
+from jTrade.Util.exception import *
 
 logfile = '../Log/GetFin-{}.log'.format(datetime.date.today().isoformat())
 open(logfile, 'a+').close()

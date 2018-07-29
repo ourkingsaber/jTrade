@@ -1,6 +1,5 @@
-import jTrade.App.Trading.FeeModel as FeeModel
-import jTrade.App.Trading.Order as Order
-import jTrade.App.Trading.Position as Position
+import jTrade.core.trading.fee_model as FeeModel
+
 
 class Portfolio(object):
     """Portfolio. Responsible for order processing and position tracking."""
@@ -20,14 +19,14 @@ class Portfolio(object):
 
 if __name__ == '__main__':
     import datetime
-    import jTrade.Core.Instrument.Equity as Equity
+    import jTrade.core.instrument.equity as Equity
     today = datetime.date(2017,8,30)
     port = Portfolio()
 
     eq = Equity.Equity('AAPL')
     eq.get_hp()
     fm = FeeModel.FixedFlat(0)
-    od = Order.Order(eq, today, 100, eq.day_avg(today), fm)
+    od = order.Order(eq, today, 100, eq.day_avg(today), fm)
     print(port.positions)
     port.place_order(od)
     print(port.positions)

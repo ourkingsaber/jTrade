@@ -1,7 +1,7 @@
 import pandas as pd
 
-import jTrade.Data.Table as Table
-from jTrade.Data.DBManager import dbmanager
+import jTrade.data.table as Table
+from jTrade.data.db_manager import dbmanager
 
 
 class Equity(object):

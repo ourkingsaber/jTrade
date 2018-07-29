@@ -5,9 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import and_, or_, select
 
-import jTrade.Data.Table as Table
-import jTrade.Util.Const as Const
-import jTrade.Util.Convert as Convert
+import jTrade.data.table as Table
+import jTrade.Util.convert as Convert
 import jTrade.Util.Credential as Credential
 
 

@@ -1,7 +1,7 @@
 import talib
 import numpy as np
 
-import jTrade.Core.Instrument.Equity as Equity
+import jTrade.core.instrument.equity as Equity
 
 
 # ========== TECH OVERLAP INDICATORS **START** ==========
@@ -406,7 +406,7 @@ def MFI(equity, start=None, end=None, timeperiod=14):
 
 
 def MINUS_DI(equity, start=None, end=None, timeperiod=14):
-    """Minus Directional Signal
+    """Minus Directional signal
 
 
     NOTE: The MINUS_DI function has an unstable period.
@@ -446,7 +446,7 @@ def MOM(equity, start=None, end=None, timeperiod=10):
 
 
 def PLUS_DI(equity, start=None, end=None, timeperiod=14):
-    """Plus Directional Signal
+    """Plus Directional signal
 
 
     NOTE: The PLUS_DI function has an unstable period.

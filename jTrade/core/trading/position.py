@@ -1,12 +1,11 @@
 import datetime
 from collections import OrderedDict
 
-import jTrade.App.Trading.FeeModel as FeeModel
-import jTrade.App.Trading.Order as Order
-import jTrade.Core.Instrument.Equity as Equity
-import jTrade.Data.Table as Table
-import jTrade.Util.Convert as Convert
-from jTrade.Data.DBManager import dbmanager
+import jTrade.core.trading.fee_model as FeeModel
+import jTrade.core.instrument.equity as Equity
+import jTrade.data.table as Table
+import jTrade.Util.convert as Convert
+from jTrade.data.db_manager import dbmanager
 
 
 class Position(object):
@@ -21,7 +20,7 @@ class Position(object):
         self.bal_history = OrderedDict()
         self.order_history = OrderedDict()
 
-    def place_order(self, order : Order.Order):
+    def place_order(self, order : order.Order):
         assert self.equity is order.equity
         if self.share * order.share >= 0:       # add position
             self.cost += order.total
@@ -82,25 +81,25 @@ if __name__ == '__main__':
     e = Equity.Equity('AAPL')
     p = Position(e)
     fm = FeeModel.FixedFlat(10)
-    o = Order.Order(e, datetime.date(2017, 1, 1), 100, 100, fm)
+    o = order.Order(e, datetime.date(2017, 1, 1), 100, 100, fm)
     p.place_order(o)
     e.price = 100
     p.save_balance()
     print(Convert.ordereddict_to_dataframe(p.order_history))
     print(Convert.ordereddict_to_dataframe(p.bal_history))
-    o = Order.Order(e, datetime.date(2017, 1, 2), -50, 100, fm)
+    o = order.Order(e, datetime.date(2017, 1, 2), -50, 100, fm)
     p.place_order(o)
     e.price = 112
     p.save_balance()
     print(Convert.ordereddict_to_dataframe(p.order_history))
     print(Convert.ordereddict_to_dataframe(p.bal_history))
-    o = Order.Order(e, datetime.date(2017, 1, 3), 50, 120, fm)
+    o = order.Order(e, datetime.date(2017, 1, 3), 50, 120, fm)
     p.place_order(o)
     e.price = 122
     p.save_balance()
     print(Convert.ordereddict_to_dataframe(p.order_history))
     print(Convert.ordereddict_to_dataframe(p.bal_history))
-    o = Order.Order(e, datetime.date(2017, 1, 4), -100, 120, fm)
+    o = order.Order(e, datetime.date(2017, 1, 4), -100, 120, fm)
     p.place_order(o)
     e.price = 112
     p.save_balance()
